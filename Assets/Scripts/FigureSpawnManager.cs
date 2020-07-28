@@ -30,10 +30,9 @@ namespace TetrisGame {
 		}
 
 		public Figure Spawn() {
-			var figure    = _figures[Random.Range(0, _figures.Length)];
-			var halfWidth = (int) (_field.FieldWidth / 2);
-			var x         = Random.Range(-halfWidth + _margin, halfWidth + 1 - _margin);
-			var position  = _spawnTarget.position + Vector3.right * x;
+			var figure   = _figures[Random.Range(0, _figures.Length)];
+			var x        = Random.Range(_field.LeftBorder + _margin, _field.RightBorder + 1 - _margin);
+			var position = _spawnTarget.position + Vector3.right * x;
 			return Instantiate(figure, position, Quaternion.identity, _spawnContainer);
 		}
 	}

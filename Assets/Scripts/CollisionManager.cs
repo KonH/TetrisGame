@@ -9,7 +9,7 @@ namespace TetrisGame {
 				var position = element.transform.position + figure.ScheduledDirection;
 				foreach ( var other in elements ) {
 					var sqrMagnitude = (other - position).sqrMagnitude;
-					if ( Mathf.Approximately(sqrMagnitude, 0) ) {
+					if ( sqrMagnitude < 0.95f ) {
 						return true;
 					}
 				}

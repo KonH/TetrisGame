@@ -26,7 +26,7 @@ namespace TetrisGame {
 			// So it's required to move it inside valid place
 			while ( !_field.IsInsideBorders(Active) ) {
 				var offset = -Mathf.Sign(Active.transform.position.x);
-				Active.Move(offset * Vector3.right);
+				Active.PerformMove(offset * Vector3.right);
 			}
 		}
 
@@ -37,7 +37,7 @@ namespace TetrisGame {
 			if ( !_field.IsInsideBorders(Active, direction) ) {
 				return;
 			}
-			Active.Move(direction);
+			Active.ScheduleMove(direction);
 		}
 	}
 }

@@ -12,10 +12,14 @@ namespace TetrisGame {
 		[SerializeField]
 		ActiveFigureManager _figureManager;
 
+		[SerializeField]
+		ElementManager _elementManager;
+
 		void OnValidate() {
 			Assert.IsNotNull(_figureSpawner, nameof(_figureSpawner));
 			Assert.IsNotNull(_elementSpawner, nameof(_elementSpawner));
 			Assert.IsNotNull(_figureManager, nameof(_figureManager));
+			Assert.IsNotNull(_elementManager, nameof(_elementManager));
 		}
 
 		void Start() {
@@ -29,11 +33,22 @@ namespace TetrisGame {
 
 		public void FinishFigure() {
 			var active = _figureManager.Active;
-			foreach ( var element in active.Elements ) {
-				_elementSpawner.SpawnElement(element);
+			foreach ( var trans in active.Elements ) {
+				var position = Align(trans.position);
+				var element = _elementSpawner.SpawnElement(position);
+				_elementManager.AddElement(element);
 			}
+			_elementManager.RebuildPositions();
 			_figureSpawner.Recycle();
 			CreateNewFigure();
+		}
+
+		Vector3 Align(Vector3 inaccuratePosition) {
+			return new Vector3(
+				Mathf.Round(inaccuratePosition.x),
+				Mathf.Round(inaccuratePosition.y),
+				Mathf.Round(inaccuratePosition.z)
+			);
 		}
 	}
 }

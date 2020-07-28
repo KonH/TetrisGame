@@ -13,6 +13,8 @@ namespace TetrisGame {
 
 		public IReadOnlyCollection<Transform> Elements => _elements;
 
+		public Vector3 ScheduledDirection { get; private set; }
+
 		void OnValidate() {
 			Assert.AreNotEqual(0, _elements.Length, nameof(_elements));
 		}
@@ -32,7 +34,16 @@ namespace TetrisGame {
 			transform.Rotate(Vector3.forward, angle);
 		}
 
-		public void Move(Vector3 direction) {
+		public void ScheduleMove(Vector3 direction) {
+			ScheduledDirection += direction;
+		}
+
+		public void ApplyMove() {
+			PerformMove(ScheduledDirection);
+			ScheduledDirection = Vector3.zero;
+		}
+
+		public void PerformMove(Vector3 direction) {
 			transform.position += direction;
 		}
 
@@ -44,6 +55,7 @@ namespace TetrisGame {
 		}
 
 		public void Hide() {
+			ScheduledDirection = Vector3.zero;
 			gameObject.SetActive(false);
 		}
 	}

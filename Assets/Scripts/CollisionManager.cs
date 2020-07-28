@@ -1,0 +1,20 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace TetrisGame {
+	public sealed class CollisionManager : MonoBehaviour {
+		public bool HasPredictedCollisions(Figure figure, IReadOnlyCollection<Vector3> elements) {
+			// Non-optimal but fine for small scale
+			foreach ( var element in figure.Elements ) {
+				var position = element.transform.position + figure.ScheduledDirection;
+				foreach ( var other in elements ) {
+					var sqrMagnitude = (other - position).sqrMagnitude;
+					if ( Mathf.Approximately(sqrMagnitude, 0) ) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+	}
+}

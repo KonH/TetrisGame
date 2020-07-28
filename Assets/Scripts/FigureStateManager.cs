@@ -12,10 +12,18 @@ namespace TetrisGame {
 		[SerializeField]
 		ActiveFigureManager _activeFigureManager;
 
+		[SerializeField]
+		ElementManager _elementManager;
+
+		[SerializeField]
+		CollisionManager _collisionManager;
+
 		void OnValidate() {
 			Assert.IsNotNull(_field, nameof(_field));
 			Assert.IsNotNull(_gameplayManager, nameof(_gameplayManager));
 			Assert.IsNotNull(_activeFigureManager, nameof(_activeFigureManager));
+			Assert.IsNotNull(_elementManager, nameof(_elementManager));
+			Assert.IsNotNull(_collisionManager, nameof(_collisionManager));
 		}
 
 		void Update() {
@@ -23,14 +31,18 @@ namespace TetrisGame {
 			if ( !active ) {
 				return;
 			}
-			if ( !IsFinished(active) ) {
+			if ( IsFinished(active) ) {
+				_gameplayManager.FinishFigure();
 				return;
 			}
-			_gameplayManager.FinishFigure();
+			active.ApplyMove();
 		}
 
 		bool IsFinished(Figure figure) {
-			return _field.IsOnBottom(figure);
+			return
+				_field.IsOnBottom(figure) ||
+				_collisionManager.HasPredictedCollisions(figure, _elementManager.Positions);
+
 		}
 	}
 }

@@ -18,12 +18,12 @@ namespace TetrisGame {
 			Assert.IsNotNull(_spawnContainer, nameof(_spawnContainer));
 		}
 
-		public GameObject SpawnElement(Transform origin) {
+		public GameObject SpawnElement(Vector3 position) {
 			if ( _pooledElements.Count <= 0 ) {
-				return Instantiate(_prefab, origin.position, Quaternion.identity, _spawnContainer);
+				return Instantiate(_prefab, position, Quaternion.identity, _spawnContainer);
 			}
 			var pooledElement = _pooledElements.Dequeue();
-			pooledElement.transform.position = origin.position;
+			pooledElement.transform.position = position;
 			pooledElement.SetActive(true);
 			return pooledElement;
 		}

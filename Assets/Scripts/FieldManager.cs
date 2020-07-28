@@ -11,6 +11,8 @@ namespace TetrisGame {
 		public int LeftBorder  { get; private set; }
 		public int RightBorder { get; private set; }
 
+		public int FieldWidth => _fieldWidth;
+
 		int _bottom;
 
 		void Awake() {

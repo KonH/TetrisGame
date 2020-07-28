@@ -304,7 +304,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387036174}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.5}
+  m_LocalPosition: {x: 0.5, y: 0, z: 1.5}
   m_LocalScale: {x: 10, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 332063267}
@@ -759,6 +759,7 @@ GameObject:
   - component: {fileID: 1434431063}
   - component: {fileID: 1434431062}
   - component: {fileID: 1434431064}
+  - component: {fileID: 1434431065}
   m_Layer: 0
   m_Name: Gameplay
   m_TagString: Untagged
@@ -834,6 +835,7 @@ MonoBehaviour:
   _elementSpawner: {fileID: 1434431061}
   _figureManager: {fileID: 1434431059}
   _elementManager: {fileID: 1434431063}
+  _collectionManager: {fileID: 1434431065}
 --- !u!114 &1434431059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -916,6 +918,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialFallSpeed: 3
   _figureManager: {fileID: 1434431059}
+--- !u!114 &1434431065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434431054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d7bd5d999c43b0a23c1c4215ccacb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _field: {fileID: 1434431056}
+  _elementManager: {fileID: 1434431063}
+  _spawnManager: {fileID: 1434431061}
 --- !u!1 &1549461109
 GameObject:
   m_ObjectHideFlags: 0

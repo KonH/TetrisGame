@@ -15,11 +15,15 @@ namespace TetrisGame {
 		[SerializeField]
 		ElementManager _elementManager;
 
+		[SerializeField]
+		LineCollectionManager _collectionManager;
+
 		void OnValidate() {
 			Assert.IsNotNull(_figureSpawner, nameof(_figureSpawner));
 			Assert.IsNotNull(_elementSpawner, nameof(_elementSpawner));
 			Assert.IsNotNull(_figureManager, nameof(_figureManager));
 			Assert.IsNotNull(_elementManager, nameof(_elementManager));
+			Assert.IsNotNull(_collectionManager, nameof(_collectionManager));
 		}
 
 		void Start() {
@@ -38,8 +42,9 @@ namespace TetrisGame {
 				var element = _elementSpawner.SpawnElement(position);
 				_elementManager.AddElement(element);
 			}
-			_elementManager.RebuildPositions();
 			_figureSpawner.Recycle();
+			_elementManager.RebuildPositions();
+			_collectionManager.TryCollapseLines();
 			CreateNewFigure();
 		}
 

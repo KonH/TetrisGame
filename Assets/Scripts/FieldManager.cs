@@ -23,7 +23,7 @@ namespace TetrisGame {
 			var halfWidth = (_fieldWidth / 2);
 			var position = transform.position;
 			var x = (int) position.x;
-			LeftBorder  = x - halfWidth;
+			LeftBorder  = x - halfWidth + 1; // Field is even, one border is closer
 			RightBorder = x + halfWidth;
 			_bottom = (int) position.y - (_fieldHeight / 2);
 		}

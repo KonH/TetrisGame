@@ -5,36 +5,36 @@ using Random = UnityEngine.Random;
 namespace TetrisGame {
 	public sealed class FigureSpawnManager : MonoBehaviour {
 		[SerializeField]
-		FieldManager Field;
+		FieldManager _field;
 
 		[Tooltip("Initial position of new figures")]
 		[SerializeField]
-		Transform SpawnTarget;
+		Transform _spawnTarget;
 
 		[Tooltip("Parent for new figures")]
 		[SerializeField]
-		Transform SpawnContainer;
+		Transform _spawnContainer;
 
 		[SerializeField]
-		Figure[] Figures;
+		Figure[] _figures;
 
 		[Tooltip("Free space on spawn area sides")]
 		[SerializeField]
-		int Margin;
+		int _margin;
 
 		void OnValidate() {
-			Assert.IsNotNull(Field, nameof(Field));
-			Assert.IsNotNull(SpawnTarget, nameof(SpawnTarget));
-			Assert.IsNotNull(SpawnContainer, nameof(SpawnContainer));
-			Assert.AreNotEqual(Figures.Length, 0, nameof(Figures));
+			Assert.IsNotNull(_field, nameof(_field));
+			Assert.IsNotNull(_spawnTarget, nameof(_spawnTarget));
+			Assert.IsNotNull(_spawnContainer, nameof(_spawnContainer));
+			Assert.AreNotEqual(0, _figures.Length, nameof(_figures));
 		}
 
 		public Figure Spawn() {
-			var figure    = Figures[Random.Range(0, Figures.Length)];
-			var halfWidth = (int) (Field.FieldWidth / 2);
-			var x         = Random.Range(-halfWidth + Margin, halfWidth + 1 - Margin);
-			var position  = SpawnTarget.position + Vector3.right * x;
-			return Instantiate(figure, position, Quaternion.identity, SpawnContainer);
+			var figure    = _figures[Random.Range(0, _figures.Length)];
+			var halfWidth = (int) (_field.FieldWidth / 2);
+			var x         = Random.Range(-halfWidth + _margin, halfWidth + 1 - _margin);
+			var position  = _spawnTarget.position + Vector3.right * x;
+			return Instantiate(figure, position, Quaternion.identity, _spawnContainer);
 		}
 	}
 }

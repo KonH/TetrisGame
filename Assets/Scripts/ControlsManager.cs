@@ -5,33 +5,33 @@ using UnityEngine.InputSystem;
 namespace TetrisGame {
 	public sealed class ControlsManager : MonoBehaviour {
 		[SerializeField]
-		ActiveFigureManager FigureManager;
+		ActiveFigureManager _figureManager;
 
 		void OnValidate() {
-			Assert.IsNotNull(FigureManager, nameof(FigureManager));
+			Assert.IsNotNull(_figureManager, nameof(_figureManager));
 		}
 
 		public void MoveLeft(InputAction.CallbackContext ctx) {
 			if ( ctx.started ) {
-				FigureManager.TryMove(Vector3.left);
+				_figureManager.TryMove(Vector3.left);
 			}
 		}
 
 		public void MoveRight(InputAction.CallbackContext ctx) {
 			if ( ctx.started ) {
-				FigureManager.TryMove(Vector3.right);
+				_figureManager.TryMove(Vector3.right);
 			}
 		}
 
 		public void Rotate(InputAction.CallbackContext ctx) {
 			if ( ctx.started ) {
-				FigureManager.TryRotate(90);
+				_figureManager.TryRotate(90);
 			}
 		}
 
 		public void SpeedUp(InputAction.CallbackContext ctx) {
 			if ( ctx.started ) {
-				FigureManager.TryMove(Vector3.down);
+				_figureManager.TryMove(Vector3.down);
 			}
 		}
 	}

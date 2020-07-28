@@ -787,6 +787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fieldWidth: 10
+  _fieldHeight: 20
 --- !u!114 &1434431057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -799,10 +800,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9acfe6690d804b439f7a5db3576ce544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Field: {fileID: 1434431056}
-  SpawnTarget: {fileID: 1670508031}
-  SpawnContainer: {fileID: 1695225779}
-  Figures:
+  _field: {fileID: 1434431056}
+  _spawnTarget: {fileID: 1670508031}
+  _spawnContainer: {fileID: 1695225779}
+  _figures:
   - {fileID: 6145168597310346921, guid: 2c47dbcee1cea4b27832d344506db4ca, type: 3}
   - {fileID: -8180433927696841944, guid: 302b58e619ea74cf2b313398c177752a, type: 3}
   - {fileID: 7842277881345589086, guid: c4f30a30e4d6d432ca836499ed291fee, type: 3}
@@ -810,7 +811,7 @@ MonoBehaviour:
   - {fileID: 3536534792362395496, guid: f7712f86912c74331965f176ac19abf8, type: 3}
   - {fileID: 8653089496343598946, guid: 67a85f112dd684d9a90e8d0f26cd033b, type: 3}
   - {fileID: 8937164263080567755, guid: a30098463084145079fd288f4d1c804c, type: 3}
-  Margin: 3
+  _margin: 2
 --- !u!114 &1434431058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -823,8 +824,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc30ae595eb4a998e3f390e12989880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FigureSpawner: {fileID: 1434431057}
-  FigureManager: {fileID: 1434431059}
+  _spawner: {fileID: 1434431057}
+  _figureManager: {fileID: 1434431059}
 --- !u!114 &1434431059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1015,7 +1016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ecdc650c554e869374b1d0bb0688b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FigureManager: {fileID: 1434431059}
+  _figureManager: {fileID: 1434431059}
 --- !u!1 &1670508030
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,14 +4,14 @@ using UnityEngine.Assertions;
 namespace TetrisGame {
 	public sealed class GameplayManager : MonoBehaviour {
 		[SerializeField]
-		FigureSpawnManager FigureSpawner;
+		FigureSpawnManager _spawner;
 
 		[SerializeField]
-		ActiveFigureManager FigureManager;
+		ActiveFigureManager _figureManager;
 
 		void OnValidate() {
-			Assert.IsNotNull(FigureSpawner, nameof(FigureSpawner));
-			Assert.IsNotNull(FigureManager, nameof(FigureManager));
+			Assert.IsNotNull(_spawner, nameof(_spawner));
+			Assert.IsNotNull(_figureManager, nameof(_figureManager));
 		}
 
 		void Start() {
@@ -19,8 +19,8 @@ namespace TetrisGame {
 		}
 
 		void CreateNewFigure() {
-			var figure = FigureSpawner.Spawn();
-			FigureManager.ChangeCurrentFigure(figure);
+			var figure = _spawner.Spawn();
+			_figureManager.ChangeCurrentFigure(figure);
 		}
 	}
 }

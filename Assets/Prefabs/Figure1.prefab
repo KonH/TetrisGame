@@ -48,6 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fixedRotation: 1
+  _elements:
+  - {fileID: 7150287648954360798}
+  - {fileID: 4943047234693607160}
+  - {fileID: 1215981968036919153}
+  - {fileID: 2357751260059008014}
 --- !u!1001 &1948901328792920213
 PrefabInstance:
   m_ObjectHideFlags: 0

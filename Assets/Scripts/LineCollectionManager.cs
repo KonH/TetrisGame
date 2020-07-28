@@ -23,7 +23,7 @@ namespace TetrisGame {
 		}
 
 		public int TryCollapseLines() {
-			var lines = GroupByLines();
+			var lines     = GroupByLines();
 			var lineCount = TryCollapseFullLines(lines);
 			if ( lineCount > 0 ) {
 				_elementManager.RebuildPositions();
@@ -35,9 +35,9 @@ namespace TetrisGame {
 		Dictionary<int, List<GameObject>> GroupByLines() {
 			var lines = _lines;
 			foreach ( var element in _elementManager.Elements ) {
-				var lineNumber = (int)element.transform.position.y;
+				var lineNumber = (int) element.transform.position.y;
 				if ( !lines.TryGetValue(lineNumber, out var container) ) {
-					container = GetOrCreateContainer();
+					container         = GetOrCreateContainer();
 					lines[lineNumber] = container;
 				}
 				container.Add(element);
@@ -64,8 +64,21 @@ namespace TetrisGame {
 					_spawnManager.Recycle(element);
 				}
 				lineCount++;
+				DropHigherLines(lines, pair.Key);
 			}
 			return lineCount;
+		}
+
+		void DropHigherLines(Dictionary<int, List<GameObject>> lines, int aboveNumber) {
+			foreach ( var pair in lines ) {
+				if ( pair.Key <= aboveNumber ) {
+					continue;
+				}
+				var items = pair.Value;
+				foreach ( var element in items ) {
+					element.transform.position += Vector3.down;
+				}
+			}
 		}
 
 		void ClearCache() {

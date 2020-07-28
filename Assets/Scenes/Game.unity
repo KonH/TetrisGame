@@ -938,7 +938,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1549461112}
         m_TargetAssemblyTypeName: TetrisGame.ControlsManager, Assembly-CSharp
-        m_MethodName: RotateLeft
+        m_MethodName: MoveLeft
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -954,7 +954,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1549461112}
         m_TargetAssemblyTypeName: TetrisGame.ControlsManager, Assembly-CSharp
-        m_MethodName: RotateRight
+        m_MethodName: MoveRight
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -966,6 +966,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b0452077-576c-4d67-bfd3-1476a2f49979
     m_ActionName: Player/RotateRight[/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1549461112}
+        m_TargetAssemblyTypeName: TetrisGame.ControlsManager, Assembly-CSharp
+        m_MethodName: Rotate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c39825e4-6163-4b35-ac47-e6a4f54b9ddc
+    m_ActionName: Player/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1549461112}
+        m_TargetAssemblyTypeName: TetrisGame.ControlsManager, Assembly-CSharp
+        m_MethodName: SpeedUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d5d3c423-33da-4425-81ed-f8ce0f8e0d10
+    m_ActionName: Player/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

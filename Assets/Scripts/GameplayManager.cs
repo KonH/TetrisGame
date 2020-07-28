@@ -7,7 +7,7 @@ namespace TetrisGame {
 		FigureSpawnManager FigureSpawner;
 
 		[SerializeField]
-		FigureManager FigureManager;
+		ActiveFigureManager FigureManager;
 
 		void OnValidate() {
 			Assert.IsNotNull(FigureSpawner, nameof(FigureSpawner));
@@ -19,7 +19,8 @@ namespace TetrisGame {
 		}
 
 		void CreateNewFigure() {
-			FigureManager.CurrentFigure = FigureSpawner.Spawn();
+			var figure = FigureSpawner.Spawn();
+			FigureManager.ChangeCurrentFigure(figure);
 		}
 	}
 }

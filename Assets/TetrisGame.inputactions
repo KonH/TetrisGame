@@ -6,7 +6,7 @@
             "id": "bfa49d8b-f5b0-408d-903b-59c9b98d1db9",
             "actions": [
                 {
-                    "name": "RotateLeft",
+                    "name": "MoveLeft",
                     "type": "Button",
                     "id": "ca97a4c7-2b0c-4fce-8e3e-5a4a07204c85",
                     "expectedControlType": "Button",
@@ -14,9 +14,25 @@
                     "interactions": ""
                 },
                 {
-                    "name": "RotateRight",
+                    "name": "MoveRight",
                     "type": "Button",
                     "id": "b0452077-576c-4d67-bfd3-1476a2f49979",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Rotate",
+                    "type": "Button",
+                    "id": "c39825e4-6163-4b35-ac47-e6a4f54b9ddc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SpeedUp",
+                    "type": "Button",
+                    "id": "d5d3c423-33da-4425-81ed-f8ce0f8e0d10",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -30,7 +46,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "RotateLeft",
+                    "action": "MoveLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -41,7 +57,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "RotateRight",
+                    "action": "MoveRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8b0db187-78b3-40d7-aaa9-e5a5cb8c5f96",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3b4d4f02-122a-4cbb-bbf0-1d014ab866c9",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpeedUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

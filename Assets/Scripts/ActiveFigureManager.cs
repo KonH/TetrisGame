@@ -6,38 +6,38 @@ namespace TetrisGame {
 		[SerializeField]
 		FieldManager _field;
 
-		Figure _current;
+		public Figure Active { get; private set; }
 
 		void OnValidate() {
 			Assert.IsNotNull(_field, nameof(_field));
 		}
 
-		public void ChangeCurrentFigure(Figure figure) {
+		public void ChangeActiveFigure(Figure figure) {
 			Assert.IsNotNull(figure);
-			_current = figure;
+			Active = figure;
 		}
 
 		public void TryRotate(float angle) {
-			if ( !_current ) {
+			if ( !Active ) {
 				return;
 			}
-			_current.Rotate(angle);
+			Active.Rotate(angle);
 			// After rotation figure can not be fit in borders in some cases
 			// So it's required to move it inside valid place
-			while ( !_field.IsInsideBorders(_current) ) {
-				var offset = -Mathf.Sign(_current.transform.position.x);
-				_current.Move(offset * Vector3.right);
+			while ( !_field.IsInsideBorders(Active) ) {
+				var offset = -Mathf.Sign(Active.transform.position.x);
+				Active.Move(offset * Vector3.right);
 			}
 		}
 
 		public void TryMove(Vector3 direction) {
-			if ( !_current ) {
+			if ( !Active ) {
 				return;
 			}
-			if ( !_field.IsInsideBorders(_current, direction) ) {
+			if ( !_field.IsInsideBorders(Active, direction) ) {
 				return;
 			}
-			_current.Move(direction);
+			Active.Move(direction);
 		}
 	}
 }

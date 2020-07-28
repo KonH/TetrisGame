@@ -20,7 +20,12 @@ namespace TetrisGame {
 
 		void CreateNewFigure() {
 			var figure = _spawner.Spawn();
-			_figureManager.ChangeCurrentFigure(figure);
+			_figureManager.ChangeActiveFigure(figure);
+		}
+
+		public void FinishFigure() {
+			_spawner.Recycle();
+			CreateNewFigure();
 		}
 	}
 }

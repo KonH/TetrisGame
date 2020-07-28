@@ -35,5 +35,16 @@ namespace TetrisGame {
 		public void Move(Vector3 direction) {
 			transform.position += direction;
 		}
+
+		public void Show(Vector3 position) {
+			var trans = transform;
+			trans.position = position;
+			trans.rotation = Quaternion.identity;
+			gameObject.SetActive(true);
+		}
+
+		public void Hide() {
+			gameObject.SetActive(false);
+		}
 	}
 }

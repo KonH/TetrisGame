@@ -22,6 +22,14 @@ namespace TetrisGame {
 		[SerializeField]
 		int _margin;
 
+		Figure[] _currentFigures;
+		int      _spawnedIndex;
+		Figure   _spawnedFigure;
+
+		void Awake() {
+			_currentFigures = new Figure[_figures.Length];
+		}
+
 		void OnValidate() {
 			Assert.IsNotNull(_field, nameof(_field));
 			Assert.IsNotNull(_spawnTarget, nameof(_spawnTarget));
@@ -30,10 +38,29 @@ namespace TetrisGame {
 		}
 
 		public Figure Spawn() {
-			var figure   = _figures[Random.Range(0, _figures.Length)];
 			var x        = Random.Range(_field.LeftBorder + _margin, _field.RightBorder + 1 - _margin);
 			var position = _spawnTarget.position + Vector3.right * x;
-			return Instantiate(figure, position, Quaternion.identity, _spawnContainer);
+			_spawnedIndex  = Random.Range(0, _figures.Length);
+			_spawnedFigure = GetOrCreate(_spawnedIndex, position);
+			return _spawnedFigure;
+		}
+
+		Figure GetOrCreate(int index, Vector3 position) {
+			var pooledFigure = _currentFigures[index];
+			if ( pooledFigure ) {
+				pooledFigure.Show(position);
+				return pooledFigure;
+			}
+			var figurePrefab   = _figures[index];
+			var figureInstance = Instantiate(figurePrefab, position, Quaternion.identity, _spawnContainer);
+			_currentFigures[index] = figureInstance;
+			return figureInstance;
+		}
+
+		public void Recycle() {
+			Assert.IsNotNull(_spawnedFigure);
+			_spawnedFigure.Hide();
+			_spawnedFigure = null;
 		}
 	}
 }

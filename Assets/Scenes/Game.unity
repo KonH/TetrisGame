@@ -761,6 +761,7 @@ GameObject:
   - component: {fileID: 1434431064}
   - component: {fileID: 1434431065}
   - component: {fileID: 1434431066}
+  - component: {fileID: 1434431067}
   m_Layer: 0
   m_Name: Gameplay
   m_TagString: Untagged
@@ -838,6 +839,7 @@ MonoBehaviour:
   _elementManager: {fileID: 1434431063}
   _collectionManager: {fileID: 1434431065}
   _scoreManager: {fileID: 1434431066}
+  _endGameManager: {fileID: 1434431067}
 --- !u!114 &1434431059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -948,6 +950,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scorePerLines: 00000000640000002c010000bc020000dc050000
+  _scoreIncreased:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1434431067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434431054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e1334ef07d046a3aa7c155ddecf8706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _activeFigure: {fileID: 1434431059}
+  _elementManager: {fileID: 1434431063}
+  _collisionManager: {fileID: 1434431062}
 --- !u!1 &1549461109
 GameObject:
   m_ObjectHideFlags: 0

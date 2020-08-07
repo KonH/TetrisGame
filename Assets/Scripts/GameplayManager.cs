@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
 namespace TetrisGame {
 	public sealed class GameplayManager : MonoBehaviour {
@@ -21,6 +22,9 @@ namespace TetrisGame {
 		[SerializeField]
 		ScoreManager _scoreManager;
 
+		[SerializeField]
+		EndGameManager _endGameManager;
+
 		void OnValidate() {
 			Assert.IsNotNull(_figureSpawner, nameof(_figureSpawner));
 			Assert.IsNotNull(_elementSpawner, nameof(_elementSpawner));
@@ -28,6 +32,7 @@ namespace TetrisGame {
 			Assert.IsNotNull(_elementManager, nameof(_elementManager));
 			Assert.IsNotNull(_collectionManager, nameof(_collectionManager));
 			Assert.IsNotNull(_scoreManager, nameof(_scoreManager));
+			Assert.IsNotNull(_endGameManager, nameof(_endGameManager));
 		}
 
 		void Start() {
@@ -51,6 +56,9 @@ namespace TetrisGame {
 			var collapsedLines = _collectionManager.TryCollapseLines();
 			_scoreManager.TryIncreaseScore(collapsedLines);
 			CreateNewFigure();
+			if ( _endGameManager.IsGameFinished() ) {
+				SceneManager.LoadScene(0);
+			}
 		}
 
 		Vector3 Align(Vector3 inaccuratePosition) {

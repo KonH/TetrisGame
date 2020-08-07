@@ -6,3 +6,4 @@ UserSettings
 *.csproj
 obj
 .idea
+*.user

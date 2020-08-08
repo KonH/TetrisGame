@@ -334,7 +334,7 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 676363373}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TetrisGame.Unity.SessionWrapper, Unity
         m_MethodName: MoveLeft
         m_Mode: 0
@@ -350,7 +350,7 @@ MonoBehaviour:
     m_ActionName: Player/RotateLeft[/Keyboard/leftArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 676363373}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TetrisGame.Unity.SessionWrapper, Unity
         m_MethodName: MoveRight
         m_Mode: 0
@@ -366,7 +366,7 @@ MonoBehaviour:
     m_ActionName: Player/RotateRight[/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 676363373}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TetrisGame.Unity.SessionWrapper, Unity
         m_MethodName: Rotate
         m_Mode: 0
@@ -382,7 +382,7 @@ MonoBehaviour:
     m_ActionName: Player/New action
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 676363373}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TetrisGame.Unity.SessionWrapper, Unity
         m_MethodName: SpeedUp
         m_Mode: 0
@@ -410,7 +410,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 676363372}
-  - component: {fileID: 676363373}
   m_Layer: 0
   m_Name: Logic
   m_TagString: Untagged
@@ -434,21 +433,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &676363373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 676363371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f36dab510c934fa7aa634a65e9811704, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _settings: {fileID: 11400000, guid: 981da81c41ee64b4085d5c85a4a78ecb, type: 2}
-  _figureParent: {fileID: 1695225779}
-  _elementParent: {fileID: 1848662651}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -870,7 +854,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1695225778}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 20, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 843529055}

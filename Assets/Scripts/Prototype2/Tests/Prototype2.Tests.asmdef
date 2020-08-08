@@ -1,9 +1,9 @@
 {
-    "name": "Tests",
+    "name": "Prototype2.Tests",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Logic"
+        "Prototype2.Logic"
     ],
     "includePlatforms": [
         "Editor"

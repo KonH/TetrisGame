@@ -13,7 +13,7 @@ namespace TetrisGame.Entity {
 
 		public bool FixedRotation => _fixedRotation;
 
-		public IReadOnlyCollection<Transform> Elements => _elements;
+		public IReadOnlyList<Transform> Elements => _elements;
 
 		void OnValidate() {
 			Assert.AreNotEqual(0, _elements.Length, nameof(_elements));

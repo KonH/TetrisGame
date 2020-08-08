@@ -1,0 +1,15 @@
+{
+    "name": "Prototype2.Settings",
+    "references": [
+        "GUID:3f892a76a6970471494df7379cd1091f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

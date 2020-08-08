@@ -12,3 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3837746e774d0389bf62133777bd9c, type: 3}
   m_Name: SessionSettings
   m_EditorClassIdentifier: 
+  _width: 10
+  _height: 20
+  _figures:
+  - {fileID: 182754437075512758, guid: 2c47dbcee1cea4b27832d344506db4ca, type: 3}
+  - {fileID: -1420475034425739788, guid: 302b58e619ea74cf2b313398c177752a, type: 3}
+  - {fileID: 5856289237628330577, guid: c4f30a30e4d6d432ca836499ed291fee, type: 3}
+  - {fileID: -1789689262875043544, guid: 170a05079f89849ceb44bc0e704a4eb3, type: 3}
+  - {fileID: -1276721790764278455, guid: f7712f86912c74331965f176ac19abf8, type: 3}
+  - {fileID: 9157348526385673122, guid: 67a85f112dd684d9a90e8d0f26cd033b, type: 3}
+  - {fileID: -8146472939493469289, guid: a30098463084145079fd288f4d1c804c, type: 3}
+  _element: {fileID: 859037742575900640, guid: f02e46c301a4c414089d3b14943e8d50, type: 3}
+  _initialSpeed: 1.5

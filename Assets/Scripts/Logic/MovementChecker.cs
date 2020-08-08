@@ -10,7 +10,7 @@ namespace TetrisGame.Logic {
 		/// finished - figure is fallen on other or floor (bottom collision happens) </returns>
 		public (bool allowed, bool finished) CalculateAbility(
 			bool[,] field, Vector2Int[] figure, Vector2Int direction) {
-			var isVerticalMove = (direction.y != 0);
+			var isHorizontalMove = (direction.x != 0);
 			var width = field.GetLength(0);
 			var height = field.GetLength(0);
 			foreach ( var originPosition in figure ) {
@@ -25,8 +25,8 @@ namespace TetrisGame.Logic {
 				}
 				var hasCollision = field[newPosition.x, newPosition.y];
 				if ( hasCollision ) {
-					// Bottom or side collision
-					return isVerticalMove ? (false, true) : (false, false);
+					// Side or bottom collision
+					return isHorizontalMove ? (false, false) : (false, true);
 				}
 			}
 			// Happy path

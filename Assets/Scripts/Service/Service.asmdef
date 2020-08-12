@@ -1,0 +1,15 @@
+{
+    "name": "Service",
+    "references": [
+        "GUID:2073c63de13da41e3bc88a3441be35e2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

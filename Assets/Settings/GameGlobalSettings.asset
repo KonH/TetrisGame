@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _width: 10
   _height: 20
-  _initialSpeed: 1
+  _initialSpeed: 3
   _elementPrefab: {fileID: 859037742575900640, guid: f02e46c301a4c414089d3b14943e8d50, type: 3}
   _figures:
   - {fileID: 4093277707424871298, guid: 2c47dbcee1cea4b27832d344506db4ca, type: 3}

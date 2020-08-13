@@ -21,8 +21,27 @@ namespace TetrisGame.Tests {
 			rotator.Rotate(figure);
 
 			var element = figure.Elements[0];
-			Assert.True(Mathf.Approximately(1.0f, element.x), element.ToString());
-			Assert.True(Mathf.Approximately(0.0f, element.y), element.ToString());
+			Assert.AreEqual(new Vector2(1, 0), element);
+		}
+
+		[Test]
+		public void IsRotatedBack() {
+			/*
+			 * [ - - ]
+			 * [ - * ]
+			 * =>
+			 * [ * - ]
+			 * [ - - ]
+			 * =>
+			 */
+			var figure = new FigureState();
+			figure.Elements.Add(new Vector2(1, 0));
+			var rotator = new FigureRotator();
+
+			rotator.RotateBack(figure);
+
+			var element = figure.Elements[0];
+			Assert.AreEqual(new Vector2(0, 1), element);
 		}
 	}
 }

@@ -12,8 +12,10 @@ namespace TetrisGame.EntryPoint {
 		[SerializeField]
 		GameSceneSettings _sceneSettings;
 
-		FieldState     _field;
-		FieldPresenter _fieldPresenter;
+		FieldState      _field;
+		FigureState     _figure;
+		FieldPresenter  _fieldPresenter;
+		FigurePresenter _figurePresenter;
 
 		void OnValidate() {
 			Assert.IsNotNull(_globalSettings, nameof(_globalSettings));
@@ -21,13 +23,17 @@ namespace TetrisGame.EntryPoint {
 		}
 
 		void Awake() {
-			_field = new FieldState(_globalSettings.Width, _globalSettings.Height);
-			var pool = new ElementPool(_sceneSettings.ElementRoot, _globalSettings.ElementPrefab);
-			_fieldPresenter = new FieldPresenter(pool, _globalSettings.Width, _globalSettings.Height);
+			_field  = new FieldState(_globalSettings.Width, _globalSettings.Height);
+			_figure = new FigureState();
+			var pool = new ElementPool(_globalSettings.ElementPrefab);
+			_fieldPresenter = new FieldPresenter(
+				pool, _sceneSettings.ElementRoot, _globalSettings.Width, _globalSettings.Height);
+			_figurePresenter = new FigurePresenter(pool, _sceneSettings.FigureRoot);
 		}
 
 		void Update() {
 			_fieldPresenter.Draw(_field);
+			_figurePresenter.Draw(_figure);
 		}
 	}
 }

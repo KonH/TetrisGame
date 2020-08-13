@@ -5,6 +5,7 @@ using UnityEngine;
 namespace TetrisGame.Presenter {
 	public sealed class FieldPresenter {
 		readonly ElementPool _pool;
+		readonly Transform   _root;
 
 		GameObject[,] _presentedState;
 
@@ -12,8 +13,9 @@ namespace TetrisGame.Presenter {
 		Queue<Vector2Int> _positionsToPlace  = new Queue<Vector2Int>();
 
 
-		public FieldPresenter(ElementPool pool, int width, int height) {
+		public FieldPresenter(ElementPool pool, Transform root, int width, int height) {
 			_pool           = pool;
+			_root           = root;
 			_presentedState = new GameObject[width, height];
 		}
 
@@ -54,7 +56,7 @@ namespace TetrisGame.Presenter {
 					element = _elementsToRecycle.Dequeue();
 					element.transform.localPosition = new Vector2(position.x, position.y);
 				}
-				element = _pool.GetOrCreate(position);
+				element = _pool.GetOrCreate(_root, position);
 				_presentedState[position.x, position.y] = element;
 			}
 		}

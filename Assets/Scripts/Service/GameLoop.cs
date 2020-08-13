@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TetrisGame.State;
 using UnityEngine;
 
@@ -10,7 +11,11 @@ namespace TetrisGame.Service {
 		readonly LimitDetector       _limitDetector;
 		readonly FigureDeconstructor _deconstructor;
 		readonly SpeedController     _speed;
+		readonly LineDetector        _lineDetector;
+		readonly LineDropper         _lineDropper;
 		readonly GameState           _state;
+
+		readonly List<int> _lines = new List<int>();
 
 		public GameLoop(int width, int height, float initialSpeed, Vector2[][] figures, GameState state) {
 			_spawner           = new FigureSpawner(width, height, figures);
@@ -20,6 +25,8 @@ namespace TetrisGame.Service {
 			_limitDetector     = new LimitDetector(width);
 			_deconstructor     = new FigureDeconstructor();
 			_speed             = new SpeedController(initialSpeed);
+			_lineDetector      = new LineDetector();
+			_lineDropper       = new LineDropper();
 			_state             = state;
 		}
 
@@ -28,6 +35,7 @@ namespace TetrisGame.Service {
 			TrySpawnNewFigure();
 			MoveByInput();
 			MoveBySpeed(dt);
+			ProcessLines();
 			ResetInput();
 		}
 
@@ -66,6 +74,11 @@ namespace TetrisGame.Service {
 
 		void MoveBySpeed(float dt) {
 			MoveVertical(_speed.Speed * dt);
+		}
+
+		void ProcessLines() {
+			_lineDetector.DetectLines(_state.Field, _lines);
+			_lineDropper.Drop(_state.Field, _lines);
 		}
 
 		void MoveHorizontal(bool right) {

@@ -12,7 +12,7 @@ namespace TetrisGame.Tests {
 
 			spawner.Spawn(figure);
 
-			Assert.AreEqual(new Vector2(5, 20), figure.Origin);
+			Assert.AreEqual(new Vector2(4, 20), figure.Origin);
 		}
 
 		[Test]

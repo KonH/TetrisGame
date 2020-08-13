@@ -16,7 +16,7 @@ namespace TetrisGame.Service {
 		public void Spawn(FigureState figure) {
 			// ReSharper disable once PossibleLossOfFraction
 			// (we need discrete start position)
-			figure.Origin = new Vector2(_width / 2, _height);
+			figure.Origin = new Vector2(_width / 2 - 1, _height);
 			figure.Elements.Clear();
 			var elements = _figures[Random.Range(0, _figures.Length)];
 			figure.Elements.AddRange(elements);

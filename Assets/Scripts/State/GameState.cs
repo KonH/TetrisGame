@@ -4,6 +4,7 @@ namespace TetrisGame.State {
 		public readonly FigureState Figure = new FigureState();
 
 		public InputState Input;
+		public bool       Finished;
 
 		public GameState(int width, int height) {
 			Field = new FieldState(width, height);

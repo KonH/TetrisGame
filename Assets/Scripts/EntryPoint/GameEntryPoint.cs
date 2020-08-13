@@ -5,6 +5,7 @@ using TetrisGame.State;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace TetrisGame.EntryPoint {
 	public sealed class GameEntryPoint : MonoBehaviour {
@@ -48,6 +49,9 @@ namespace TetrisGame.EntryPoint {
 			_loop.Update(Time.deltaTime);
 			_fieldPresenter.Draw(_state.Field);
 			_figurePresenter.Draw(_state.Figure);
+			if ( _state.Finished ) {
+				SceneManager.LoadScene("Game");
+			}
 		}
 
 		public void HandleMoveLeft(InputAction.CallbackContext ctx) => HandleInput(ctx, InputState.MoveLeft);

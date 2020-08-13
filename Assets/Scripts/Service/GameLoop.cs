@@ -32,7 +32,10 @@ namespace TetrisGame.Service {
 
 		public void Update(float dt) {
 			ResetField();
-			TrySpawnNewFigure();
+			if ( !TrySpawnNewFigure() ) {
+				ResetInput();
+				return;
+			}
 			MoveByInput();
 			MoveBySpeed(dt);
 			ProcessLines();
@@ -43,10 +46,17 @@ namespace TetrisGame.Service {
 			_state.Field.IsDirty = false;
 		}
 
-		void TrySpawnNewFigure() {
-			if ( !_state.Figure.IsPresent ) {
-				_spawner.Spawn(_state.Figure);
+		bool TrySpawnNewFigure() {
+			if ( _state.Figure.IsPresent ) {
+				return true;
 			}
+			_spawner.Spawn(_state.Figure);
+			if ( !ShouldDeconstruct() ) {
+				return true;
+			}
+			_state.Figure.Elements.Clear();
+			_state.Finished = true;
+			return false;
 		}
 
 		void MoveByInput() {

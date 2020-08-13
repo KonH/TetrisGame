@@ -334,9 +334,9 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TetrisGame.Unity.SessionWrapper, Unity
-        m_MethodName: MoveLeft
+      - m_Target: {fileID: 676363373}
+        m_TargetAssemblyTypeName: TetrisGame.EntryPoint.GameEntryPoint, EntryPoint
+        m_MethodName: HandleMoveLeft
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -350,9 +350,9 @@ MonoBehaviour:
     m_ActionName: Player/RotateLeft[/Keyboard/leftArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TetrisGame.Unity.SessionWrapper, Unity
-        m_MethodName: MoveRight
+      - m_Target: {fileID: 676363373}
+        m_TargetAssemblyTypeName: TetrisGame.EntryPoint.GameEntryPoint, EntryPoint
+        m_MethodName: HandleMoveRight
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -366,9 +366,9 @@ MonoBehaviour:
     m_ActionName: Player/RotateRight[/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TetrisGame.Unity.SessionWrapper, Unity
-        m_MethodName: Rotate
+      - m_Target: {fileID: 676363373}
+        m_TargetAssemblyTypeName: TetrisGame.EntryPoint.GameEntryPoint, EntryPoint
+        m_MethodName: HandleRotate
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -382,9 +382,9 @@ MonoBehaviour:
     m_ActionName: Player/New action
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TetrisGame.Unity.SessionWrapper, Unity
-        m_MethodName: SpeedUp
+      - m_Target: {fileID: 676363373}
+        m_TargetAssemblyTypeName: TetrisGame.EntryPoint.GameEntryPoint, EntryPoint
+        m_MethodName: HandleSpeedUp
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

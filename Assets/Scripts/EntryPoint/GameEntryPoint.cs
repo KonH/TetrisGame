@@ -4,6 +4,7 @@ using TetrisGame.Settings;
 using TetrisGame.State;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.InputSystem;
 
 namespace TetrisGame.EntryPoint {
 	public sealed class GameEntryPoint : MonoBehaviour {
@@ -45,6 +46,17 @@ namespace TetrisGame.EntryPoint {
 			_loop.Update(Time.deltaTime);
 			_fieldPresenter.Draw(_state.Field);
 			_figurePresenter.Draw(_state.Figure);
+		}
+
+		public void HandleMoveLeft(InputAction.CallbackContext ctx) => HandleInput(ctx, InputState.MoveLeft);
+		public void HandleMoveRight(InputAction.CallbackContext ctx) => HandleInput(ctx, InputState.MoveRight);
+		public void HandleSpeedUp(InputAction.CallbackContext ctx) => HandleInput(ctx, InputState.SpeedUp);
+		public void HandleRotate(InputAction.CallbackContext ctx) => HandleInput(ctx, InputState.Rotate);
+
+		void HandleInput(InputAction.CallbackContext ctx, InputState input) {
+			if ( ctx.started ) {
+				_state.Input = input;
+			}
 		}
 	}
 }

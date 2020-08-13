@@ -3,6 +3,8 @@ namespace TetrisGame.State {
 		public readonly FieldState  Field;
 		public readonly FigureState Figure = new FigureState();
 
+		public InputState Input;
+
 		public GameState(int width, int height) {
 			Field = new FieldState(width, height);
 		}

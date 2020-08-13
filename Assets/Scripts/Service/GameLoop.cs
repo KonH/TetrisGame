@@ -24,10 +24,15 @@ namespace TetrisGame.Service {
 		}
 
 		public void Update(float dt) {
+			ResetField();
 			TrySpawnNewFigure();
 			MoveByInput();
 			MoveBySpeed(dt);
 			ResetInput();
+		}
+
+		void ResetField() {
+			_state.Field.IsDirty = false;
 		}
 
 		void TrySpawnNewFigure() {

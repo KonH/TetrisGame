@@ -19,6 +19,21 @@ namespace TetrisGame.Tests {
 		}
 
 		[Test]
+		public void HasCollisionsWithOrigin() {
+			var field = new FieldState(2, 2);
+			field.Field[0, 1] = true;
+			var figure = new FigureState {
+				Origin = Vector2.up
+			};
+			figure.Elements.Add(new Vector2(0, 0));
+			var detector = new CollisionDetector();
+
+			var result = detector.HasCollisions(field, figure);
+
+			Assert.IsTrue(result);
+		}
+
+		[Test]
 		public void HasNoDiscreteCollisions() {
 			var field = new FieldState(2, 2);
 			var figure = new FigureState();

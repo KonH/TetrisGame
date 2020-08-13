@@ -5,7 +5,7 @@ namespace TetrisGame.Service {
 	public sealed class CollisionDetector {
 		public bool HasCollisions(FieldState field, FigureState figure) {
 			foreach ( var element in figure.Elements ) {
-				if ( HasCollisions(field, element) ) {
+				if ( HasCollisions(field, figure.Origin + element) ) {
 					return true;
 				}
 			}

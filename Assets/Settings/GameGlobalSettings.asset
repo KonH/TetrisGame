@@ -15,3 +15,11 @@ MonoBehaviour:
   _width: 10
   _height: 20
   _elementPrefab: {fileID: 859037742575900640, guid: f02e46c301a4c414089d3b14943e8d50, type: 3}
+  _figures:
+  - {fileID: 4093277707424871298, guid: 2c47dbcee1cea4b27832d344506db4ca, type: 3}
+  - {fileID: 1462647097418338214, guid: 302b58e619ea74cf2b313398c177752a, type: 3}
+  - {fileID: -4514106538234238073, guid: c4f30a30e4d6d432ca836499ed291fee, type: 3}
+  - {fileID: -8231773251074966041, guid: 170a05079f89849ceb44bc0e704a4eb3, type: 3}
+  - {fileID: -6456260516018770576, guid: f7712f86912c74331965f176ac19abf8, type: 3}
+  - {fileID: -2250843628841857311, guid: 67a85f112dd684d9a90e8d0f26cd033b, type: 3}
+  - {fileID: 7618158324126607272, guid: a30098463084145079fd288f4d1c804c, type: 3}

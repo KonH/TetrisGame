@@ -74,7 +74,10 @@ namespace TetrisGame.Service {
 					break;
 
 				case InputState.SpeedUp:
-					MoveVertical();
+					bool result;
+					do {
+						result = MoveVertical();
+					} while ( result );
 					break;
 
 				case InputState.Rotate:
@@ -104,13 +107,15 @@ namespace TetrisGame.Service {
 			}
 		}
 
-		void MoveVertical(float distance = 1.0f) {
+		bool MoveVertical(float distance = 1.0f) {
 			var step = Vector2.down * distance;
 			_mover.Move(_state.Figure, step);
 			if ( ShouldDeconstruct() ) {
 				_mover.Move(_state.Figure, -step);
 				Deconstruct();
+				return false;
 			}
+			return true;
 		}
 
 		void Deconstruct() {

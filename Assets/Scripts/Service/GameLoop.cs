@@ -13,11 +13,14 @@ namespace TetrisGame.Service {
 		readonly SpeedController     _speed;
 		readonly LineDetector        _lineDetector;
 		readonly LineDropper         _lineDropper;
+		readonly ScoreProducer       _scoreProducer;
 		readonly GameState           _state;
 
 		readonly List<int> _lines = new List<int>();
 
-		public GameLoop(int width, int height, float initialSpeed, Vector2[][] figures, GameState state) {
+		public GameLoop(
+			int width, int height, float initialSpeed,
+			Vector2[][] figures, IReadOnlyList<int> scorePerLines, GameState state) {
 			_spawner           = new FigureSpawner(width, height, figures);
 			_mover             = new FigureMover();
 			_rotator           = new FigureRotator();
@@ -27,6 +30,7 @@ namespace TetrisGame.Service {
 			_speed             = new SpeedController(initialSpeed);
 			_lineDetector      = new LineDetector();
 			_lineDropper       = new LineDropper();
+			_scoreProducer     = new ScoreProducer(scorePerLines);
 			_state             = state;
 		}
 
@@ -89,6 +93,7 @@ namespace TetrisGame.Service {
 		void ProcessLines() {
 			_lineDetector.DetectLines(_state.Field, _lines);
 			_lineDropper.Drop(_state.Field, _lines);
+			_scoreProducer.AddScores(_state, _lines.Count);
 		}
 
 		void MoveHorizontal(bool right) {

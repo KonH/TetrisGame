@@ -20,6 +20,9 @@ namespace TetrisGame.Settings {
 		[SerializeField]
 		FigureSettings[] _figures;
 
+		[SerializeField]
+		int[] _scorePerLines;
+
 		public int Width  => _width;
 		public int Height => _height;
 
@@ -29,12 +32,15 @@ namespace TetrisGame.Settings {
 
 		public IReadOnlyList<FigureSettings> Figures => _figures;
 
+		public IReadOnlyList<int> ScorePerLines => _scorePerLines;
+
 		public void OnValidate() {
 			Assert.AreNotEqual(0, _width, nameof(_width));
 			Assert.AreNotEqual(0, _height, nameof(_height));
 			Assert.AreNotEqual(0.0f, _initialSpeed, nameof(_initialSpeed));
 			Assert.IsNotNull(_elementPrefab, nameof(_elementPrefab));
 			Assert.AreNotEqual(0, _figures?.Length, nameof(_figures));
+			Assert.AreNotEqual(0, _scorePerLines?.Length, nameof(_scorePerLines));
 		}
 	}
 }

@@ -19,6 +19,7 @@ namespace TetrisGame.EntryPoint {
 		GameLoop        _loop;
 		FieldPresenter  _fieldPresenter;
 		FigurePresenter _figurePresenter;
+		ScorePresenter  _scorePresenter;
 
 		void OnValidate() {
 			Assert.IsNotNull(_globalSettings, nameof(_globalSettings));
@@ -29,11 +30,12 @@ namespace TetrisGame.EntryPoint {
 			_state = new GameState(_globalSettings.Width, _globalSettings.Height);
 			_loop = new GameLoop(
 				_globalSettings.Width, _globalSettings.Height, _globalSettings.InitialSpeed,
-				PopulateFigures(), _state);
+				PopulateFigures(), _globalSettings.ScorePerLines, _state);
 			var pool = new ElementPool(_globalSettings.ElementPrefab);
 			_fieldPresenter = new FieldPresenter(
 				pool, _sceneSettings.ElementRoot, _globalSettings.Width, _globalSettings.Height);
 			_figurePresenter = new FigurePresenter(pool, _sceneSettings.FigureRoot);
+			_scorePresenter = new ScorePresenter(_sceneSettings.ScoresText);
 		}
 
 		Vector2[][] PopulateFigures() {
@@ -49,6 +51,7 @@ namespace TetrisGame.EntryPoint {
 			_loop.Update(Time.deltaTime);
 			_fieldPresenter.Draw(_state.Field);
 			_figurePresenter.Draw(_state.Figure);
+			_scorePresenter.Draw(_state.Scores);
 			if ( _state.Finished ) {
 				SceneManager.LoadScene("Game");
 			}

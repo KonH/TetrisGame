@@ -54,7 +54,7 @@ namespace TetrisGame.Service {
 			if ( !ShouldDeconstruct() ) {
 				return true;
 			}
-			_state.Figure.Elements.Clear();
+			_state.Figure.Reset();
 			_state.Finished = true;
 			return false;
 		}
@@ -110,7 +110,7 @@ namespace TetrisGame.Service {
 
 		void Deconstruct() {
 			_deconstructor.Place(_state.Field, _state.Figure);
-			_state.Figure.Elements.Clear();
+			_state.Figure.Reset();
 		}
 
 		bool ShouldDeconstruct() =>

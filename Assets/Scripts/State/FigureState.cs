@@ -7,5 +7,10 @@ namespace TetrisGame.State {
 		public List<Vector2> Elements { get; } = new List<Vector2>();
 
 		public bool IsPresent => Elements.Count > 0;
+
+		public void Reset() {
+			Origin = Vector2.zero;
+			Elements.Clear();
+		}
 	}
 }

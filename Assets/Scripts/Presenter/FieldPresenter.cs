@@ -19,7 +19,7 @@ namespace TetrisGame.Presenter {
 			_presentedState = new GameObject[width, height];
 		}
 
-		public void Draw(FieldState field) {
+		public void Draw(IReadOnlyFieldState field) {
 			if ( !field.IsDirty ) {
 				return;
 			}
@@ -28,13 +28,13 @@ namespace TetrisGame.Presenter {
 			RecycleOldElements();
 		}
 
-		void PrepareData(FieldState field) {
+		void PrepareData(IReadOnlyFieldState field) {
 			_elementsToRecycle.Clear();
 			_positionsToPlace.Clear();
 			for ( var x = 0; x < field.Width; x++ ) {
 				for ( var y = 0; y < field.Height; y++ ) {
 					var isPresented       = _presentedState[x, y];
-					var shouldBePresented = field.Field[x, y];
+					var shouldBePresented = field.GetState(x, y);
 					if ( isPresented == shouldBePresented ) {
 						continue;
 					}

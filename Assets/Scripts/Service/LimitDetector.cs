@@ -9,7 +9,7 @@ namespace TetrisGame.Service {
 			_width = width;
 		}
 
-		public bool IsLimitReached(FigureState figure) {
+		public bool IsLimitReached(IReadOnlyFigureState figure) {
 			foreach ( var element in figure.Elements ) {
 				if ( IsLimitReached(figure.Origin + element) ) {
 					return true;

@@ -6,7 +6,7 @@ namespace TetrisGame.Service {
 	/// Places figure with floating point elements into discrete field
 	/// </summary>
 	public sealed class FigureDeconstructor {
-		public void Place(FieldState field, FigureState figure) {
+		public void Place(FieldState field, IReadOnlyFigureState figure) {
 			foreach ( var element in figure.Elements ) {
 				Place(field, figure.Origin + element);
 			}

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace TetrisGame.Service {
 	public sealed class GameLoop {
+		readonly GameState           _state;
 		readonly FigureSpawner       _spawner;
 		readonly FigureMover         _mover;
 		readonly FigureRotator       _rotator;
@@ -14,13 +15,15 @@ namespace TetrisGame.Service {
 		readonly LineDetector        _lineDetector;
 		readonly LineDropper         _lineDropper;
 		readonly ScoreProducer       _scoreProducer;
-		readonly GameState           _state;
 
 		readonly List<int> _lines = new List<int>();
 
+		public IReadOnlyGameState State => _state;
+
 		public GameLoop(
 			int width, int height, float initialSpeed, int linesToIncrease, float increaseValue,
-			Vector2[][] figures, IReadOnlyList<int> scorePerLines, GameState state) {
+			Vector2[][] figures, IReadOnlyList<int> scorePerLines) {
+			_state             = new GameState(width, height, initialSpeed);
 			_spawner           = new FigureSpawner(width, height, figures);
 			_mover             = new FigureMover();
 			_rotator           = new FigureRotator();
@@ -31,7 +34,6 @@ namespace TetrisGame.Service {
 			_lineDetector      = new LineDetector();
 			_lineDropper       = new LineDropper();
 			_scoreProducer     = new ScoreProducer(scorePerLines);
-			_state             = state;
 		}
 
 		public void Update(float dt) {
@@ -43,6 +45,10 @@ namespace TetrisGame.Service {
 			MoveByInput();
 			MoveBySpeed(dt);
 			ResetInput();
+		}
+
+		public void UpdateInput(InputState input) {
+			_state.Input = input;
 		}
 
 		void ResetField() {

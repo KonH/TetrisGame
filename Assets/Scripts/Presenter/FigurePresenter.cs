@@ -14,7 +14,7 @@ namespace TetrisGame.Presenter {
 			_root = root;
 		}
 
-		public void Draw(FigureState figure) {
+		public void Draw(IReadOnlyFigureState figure) {
 			_root.transform.localPosition = figure.Origin;
 			SyncElementCount(figure.Elements);
 			SyncElements(figure.Elements);

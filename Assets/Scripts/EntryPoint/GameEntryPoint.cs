@@ -15,7 +15,6 @@ namespace TetrisGame.EntryPoint {
 		[SerializeField]
 		GameSceneSettings _sceneSettings;
 
-		GameState       _state;
 		GameLoop        _loop;
 		FieldPresenter  _fieldPresenter;
 		FigurePresenter _figurePresenter;
@@ -28,11 +27,10 @@ namespace TetrisGame.EntryPoint {
 		}
 
 		void Awake() {
-			_state = new GameState(_globalSettings.Width, _globalSettings.Height, _globalSettings.InitialSpeed);
 			_loop = new GameLoop(
 				_globalSettings.Width, _globalSettings.Height,
 				_globalSettings.InitialSpeed, _globalSettings.LinesToIncrease, _globalSettings.IncreaseValue,
-				PopulateFigures(), _globalSettings.ScorePerLines, _state);
+				PopulateFigures(), _globalSettings.ScorePerLines);
 			var pool = new ElementPool(_globalSettings.ElementPrefab);
 			_fieldPresenter = new FieldPresenter(
 				pool, _sceneSettings.ElementRoot, _globalSettings.Width, _globalSettings.Height);
@@ -51,12 +49,13 @@ namespace TetrisGame.EntryPoint {
 		}
 
 		void Update() {
+			var state = _loop.State;
 			_loop.Update(Time.deltaTime);
-			_fieldPresenter.Draw(_state.Field);
-			_figurePresenter.Draw(_state.Figure);
-			_scorePresenter.Draw(_state.Scores);
-			_speedPresenter.Draw(_state.Speed.Level);
-			if ( _state.Finished ) {
+			_fieldPresenter.Draw(state.Field);
+			_figurePresenter.Draw(state.Figure);
+			_scorePresenter.Draw(state.Scores);
+			_speedPresenter.Draw(state.Speed.Level);
+			if ( state.Finished ) {
 				SceneManager.LoadScene("Game");
 			}
 		}
@@ -68,7 +67,7 @@ namespace TetrisGame.EntryPoint {
 
 		void HandleInput(InputAction.CallbackContext ctx, InputState input) {
 			if ( ctx.started ) {
-				_state.Input = input;
+				_loop.UpdateInput(input);
 			}
 		}
 	}

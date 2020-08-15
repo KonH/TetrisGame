@@ -55,8 +55,9 @@ namespace TetrisGame.Presenter {
 				if ( _elementsToRecycle.Count > 0 ) {
 					element = _elementsToRecycle.Dequeue();
 					element.transform.localPosition = new Vector2(position.x, position.y);
+				} else {
+					element = _pool.GetOrCreate(_root, position);
 				}
-				element = _pool.GetOrCreate(_root, position);
 				_presentedState[position.x, position.y] = element;
 			}
 		}

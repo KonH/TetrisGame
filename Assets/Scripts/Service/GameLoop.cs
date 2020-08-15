@@ -42,7 +42,6 @@ namespace TetrisGame.Service {
 			}
 			MoveByInput();
 			MoveBySpeed(dt);
-			ProcessLines();
 			ResetInput();
 		}
 
@@ -90,12 +89,6 @@ namespace TetrisGame.Service {
 			MoveVertical(_speed.Speed * dt);
 		}
 
-		void ProcessLines() {
-			_lineDetector.DetectLines(_state.Field, _lines);
-			_lineDropper.Drop(_state.Field, _lines);
-			_scoreProducer.AddScores(_state, _lines.Count);
-		}
-
 		void MoveHorizontal(bool right) {
 			var step = right ? Vector2.right : Vector2.left;
 			_mover.Move(_state.Figure, step);
@@ -116,6 +109,13 @@ namespace TetrisGame.Service {
 		void Deconstruct() {
 			_deconstructor.Place(_state.Field, _state.Figure);
 			_state.Figure.Reset();
+			ProcessLines();
+		}
+
+		void ProcessLines() {
+			_lineDetector.DetectLines(_state.Field, _lines);
+			_lineDropper.Drop(_state.Field, _lines);
+			_scoreProducer.AddScores(_state, _lines.Count);
 		}
 
 		bool ShouldDeconstruct() =>

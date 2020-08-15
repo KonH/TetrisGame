@@ -5,7 +5,6 @@ using TetrisGame.State;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 namespace TetrisGame.EntryPoint {
 	public sealed class GameEntryPoint : MonoBehaviour {
@@ -20,6 +19,8 @@ namespace TetrisGame.EntryPoint {
 		FigurePresenter _figurePresenter;
 		ScorePresenter  _scorePresenter;
 		SpeedPresenter  _speedPresenter;
+
+		bool _finished;
 
 		void OnValidate() {
 			Assert.IsNotNull(_globalSettings, nameof(_globalSettings));
@@ -37,6 +38,8 @@ namespace TetrisGame.EntryPoint {
 			_figurePresenter = new FigurePresenter(pool, _sceneSettings.FigureRoot);
 			_scorePresenter = new ScorePresenter(_sceneSettings.ScoresText);
 			_speedPresenter = new SpeedPresenter(_sceneSettings.SpeedText);
+
+			_sceneSettings.RecordListView.Hide();
 		}
 
 		Vector2[][] PopulateFigures() {
@@ -49,6 +52,9 @@ namespace TetrisGame.EntryPoint {
 		}
 
 		void Update() {
+			if ( _finished ) {
+				return;
+			}
 			var state = _loop.State;
 			_loop.Update(Time.deltaTime);
 			_fieldPresenter.Draw(state.Field);
@@ -56,7 +62,8 @@ namespace TetrisGame.EntryPoint {
 			_scorePresenter.Draw(state.Scores);
 			_speedPresenter.Draw(state.Speed.Level);
 			if ( state.Finished ) {
-				SceneManager.LoadScene("Game");
+				_finished = true;
+				_sceneSettings.RecordListView.Show(state);
 			}
 		}
 

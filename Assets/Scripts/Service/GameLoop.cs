@@ -15,6 +15,7 @@ namespace TetrisGame.Service {
 		readonly LineDetector        _lineDetector;
 		readonly LineDropper         _lineDropper;
 		readonly ScoreProducer       _scoreProducer;
+		readonly RecordWriter        _recordWriter;
 
 		readonly List<int> _lines = new List<int>();
 
@@ -34,6 +35,10 @@ namespace TetrisGame.Service {
 			_lineDetector      = new LineDetector();
 			_lineDropper       = new LineDropper();
 			_scoreProducer     = new ScoreProducer(scorePerLines);
+			_recordWriter      = new RecordWriter();
+
+			var recordReader = new RecordReader();
+			recordReader.Read(_state.Records);
 		}
 
 		public void Update(float dt) {
@@ -65,6 +70,7 @@ namespace TetrisGame.Service {
 			}
 			_state.Figure.Reset();
 			_state.Finished = true;
+			_recordWriter.Write(_state.Records, _state.Scores);
 			return false;
 		}
 

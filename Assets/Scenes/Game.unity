@@ -833,7 +833,7 @@ GameObject:
   - component: {fileID: 924195341}
   - component: {fileID: 924195340}
   m_Layer: 5
-  m_Name: ScoreBackground
+  m_Name: ScoresBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

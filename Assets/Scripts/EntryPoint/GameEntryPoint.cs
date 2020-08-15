@@ -20,6 +20,7 @@ namespace TetrisGame.EntryPoint {
 		FieldPresenter  _fieldPresenter;
 		FigurePresenter _figurePresenter;
 		ScorePresenter  _scorePresenter;
+		SpeedPresenter  _speedPresenter;
 
 		void OnValidate() {
 			Assert.IsNotNull(_globalSettings, nameof(_globalSettings));
@@ -37,6 +38,7 @@ namespace TetrisGame.EntryPoint {
 				pool, _sceneSettings.ElementRoot, _globalSettings.Width, _globalSettings.Height);
 			_figurePresenter = new FigurePresenter(pool, _sceneSettings.FigureRoot);
 			_scorePresenter = new ScorePresenter(_sceneSettings.ScoresText);
+			_speedPresenter = new SpeedPresenter(_sceneSettings.SpeedText);
 		}
 
 		Vector2[][] PopulateFigures() {
@@ -53,6 +55,7 @@ namespace TetrisGame.EntryPoint {
 			_fieldPresenter.Draw(_state.Field);
 			_figurePresenter.Draw(_state.Figure);
 			_scorePresenter.Draw(_state.Scores);
+			_speedPresenter.Draw(_state.Speed.Level);
 			if ( _state.Finished ) {
 				SceneManager.LoadScene("Game");
 			}

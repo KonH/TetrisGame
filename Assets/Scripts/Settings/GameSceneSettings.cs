@@ -15,14 +15,19 @@ namespace TetrisGame.Settings {
 		[SerializeField]
 		TMP_Text _scoresText;
 
+		[SerializeField]
+		TMP_Text _speedText;
+
 		public Transform ElementRoot => _elementRoot;
 		public Transform FigureRoot  => _figureRoot;
 		public TMP_Text  ScoresText  => _scoresText;
+		public TMP_Text  SpeedText   => _speedText;
 
 		public void Validate() {
 			Assert.IsNotNull(_elementRoot, nameof(_elementRoot));
 			Assert.IsNotNull(_figureRoot, nameof(_figureRoot));
 			Assert.IsNotNull(_scoresText, nameof(_scoresText));
+			Assert.IsNotNull(_speedText, nameof(_speedText));
 		}
 	}
 }

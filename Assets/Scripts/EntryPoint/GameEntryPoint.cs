@@ -27,9 +27,10 @@ namespace TetrisGame.EntryPoint {
 		}
 
 		void Awake() {
-			_state = new GameState(_globalSettings.Width, _globalSettings.Height);
+			_state = new GameState(_globalSettings.Width, _globalSettings.Height, _globalSettings.InitialSpeed);
 			_loop = new GameLoop(
-				_globalSettings.Width, _globalSettings.Height, _globalSettings.InitialSpeed,
+				_globalSettings.Width, _globalSettings.Height,
+				_globalSettings.InitialSpeed, _globalSettings.LinesToIncrease, _globalSettings.IncreaseValue,
 				PopulateFigures(), _globalSettings.ScorePerLines, _state);
 			var pool = new ElementPool(_globalSettings.ElementPrefab);
 			_fieldPresenter = new FieldPresenter(

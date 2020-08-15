@@ -1,11 +1,23 @@
+using TetrisGame.State;
+
 namespace TetrisGame.Service {
 	public sealed class SpeedController {
-		readonly float _initialSpeed;
+		readonly int   _linesToIncrease;
+		readonly float _increaseValue;
 
-		public SpeedController(float initialSpeed) {
-			_initialSpeed = initialSpeed;
+		public SpeedController(int linesToIncrease, float increaseValue) {
+			_linesToIncrease = linesToIncrease;
+			_increaseValue   = increaseValue;
 		}
 
-		public float Speed => _initialSpeed;
+		public void ApplyLines(SpeedState state, int count) {
+			state.CurrentLines += count;
+			var tmp = state.CurrentLines - _linesToIncrease;
+			if ( tmp > 0 ) {
+				state.CurrentLines = tmp;
+				state.Current += _increaseValue;
+				state.Level++;
+			}
+		}
 	}
 }

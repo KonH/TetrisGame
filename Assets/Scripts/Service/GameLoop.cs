@@ -19,7 +19,7 @@ namespace TetrisGame.Service {
 		readonly List<int> _lines = new List<int>();
 
 		public GameLoop(
-			int width, int height, float initialSpeed,
+			int width, int height, float initialSpeed, int linesToIncrease, float increaseValue,
 			Vector2[][] figures, IReadOnlyList<int> scorePerLines, GameState state) {
 			_spawner           = new FigureSpawner(width, height, figures);
 			_mover             = new FigureMover();
@@ -27,7 +27,7 @@ namespace TetrisGame.Service {
 			_collisionDetector = new CollisionDetector();
 			_limitDetector     = new LimitDetector(width);
 			_deconstructor     = new FigureDeconstructor();
-			_speed             = new SpeedController(initialSpeed);
+			_speed             = new SpeedController(linesToIncrease, increaseValue);
 			_lineDetector      = new LineDetector();
 			_lineDropper       = new LineDropper();
 			_scoreProducer     = new ScoreProducer(scorePerLines);
@@ -86,7 +86,7 @@ namespace TetrisGame.Service {
 		}
 
 		void MoveBySpeed(float dt) {
-			MoveVertical(_speed.Speed * dt);
+			MoveVertical(_state.Speed.Current * dt);
 		}
 
 		void MoveHorizontal(bool right) {
@@ -116,6 +116,7 @@ namespace TetrisGame.Service {
 			_lineDetector.DetectLines(_state.Field, _lines);
 			_lineDropper.Drop(_state.Field, _lines);
 			_scoreProducer.AddScores(_state, _lines.Count);
+			_speed.ApplyLines(_state.Speed, _lines.Count);
 		}
 
 		bool ShouldDeconstruct() =>

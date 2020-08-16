@@ -1,13 +1,16 @@
 ﻿using TMPro;
+using UnityEngine;
 
 namespace TetrisGame.Presenter {
 	public sealed class SpeedPresenter {
-		readonly TMP_Text _text;
+		readonly TMP_Text  _text;
+		readonly Animation _animation;
 
 		int _currentLevel;
 
 		public SpeedPresenter(TMP_Text text) {
-			_text = text;
+			_text      = text;
+			_animation = _text.GetComponent<Animation>();
 		}
 
 		public void Draw(int level) {
@@ -17,6 +20,9 @@ namespace TetrisGame.Presenter {
 			}
 			_currentLevel = displayLevel;
 			_text.text = displayLevel.ToString();
+			if ( _animation ) {
+				_animation.Play();
+			}
 		}
 	}
 }

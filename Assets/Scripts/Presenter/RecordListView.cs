@@ -7,6 +7,9 @@ using UnityEngine.Assertions;
 namespace TetrisGame.Presenter {
 	public sealed class RecordListView : MonoBehaviour {
 		[SerializeField]
+		Animation _animation;
+
+		[SerializeField]
 		RecordView[] _records;
 
 		[SerializeField]
@@ -31,6 +34,9 @@ namespace TetrisGame.Presenter {
 			}
 			gameObject.SetActive(true);
 			_restartCallback = restartCallback;
+			if ( _animation ) {
+				_animation.Play();
+			}
 		}
 
 		public void Hide() {

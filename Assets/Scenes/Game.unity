@@ -1144,6 +1144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 514283797}
   - component: {fileID: 514283798}
+  - component: {fileID: 514283799}
   m_Layer: 5
   m_Name: RecordsWindow
   m_TagString: Untagged
@@ -1184,6 +1185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5cd7007eb0047bd9da679d570117ff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animation: {fileID: 514283799}
   _records:
   - {fileID: 7477225889989251865}
   - {fileID: 568372396}
@@ -1196,6 +1198,22 @@ MonoBehaviour:
   - {fileID: 94487857}
   - {fileID: 1219500899}
   _restartButton: {fileID: 148092906}
+--- !u!111 &514283799
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514283796}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: c1a68290b77aa4e59a85797293282a9c, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: c1a68290b77aa4e59a85797293282a9c, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1001 &568372394
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1320,6 +1338,7 @@ GameObject:
   - component: {fileID: 604714624}
   - component: {fileID: 604714626}
   - component: {fileID: 604714625}
+  - component: {fileID: 604714627}
   m_Layer: 5
   m_Name: ScoresText
   m_TagString: Untagged
@@ -1443,6 +1462,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604714623}
   m_CullTransparentMesh: 0
+--- !u!111 &604714627
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604714623}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 0ccb84d769e754d5c820f721ad958f72, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 0ccb84d769e754d5c820f721ad958f72, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &619316196
 GameObject:
   m_ObjectHideFlags: 0
@@ -1832,6 +1867,7 @@ GameObject:
   - component: {fileID: 896543470}
   - component: {fileID: 896543472}
   - component: {fileID: 896543471}
+  - component: {fileID: 896543473}
   m_Layer: 5
   m_Name: SpeedText
   m_TagString: Untagged
@@ -1955,6 +1991,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 896543469}
   m_CullTransparentMesh: 0
+--- !u!111 &896543473
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896543469}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 0ccb84d769e754d5c820f721ad958f72, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 0ccb84d769e754d5c820f721ad958f72, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

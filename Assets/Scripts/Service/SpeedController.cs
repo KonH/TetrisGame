@@ -1,6 +1,9 @@
 using TetrisGame.State;
 
 namespace TetrisGame.Service {
+	/// <summary>
+	/// Update speed each collapsed linesToIncrease by increasedValue
+	/// </summary>
 	public sealed class SpeedController {
 		readonly int   _linesToIncrease;
 		readonly float _increaseValue;

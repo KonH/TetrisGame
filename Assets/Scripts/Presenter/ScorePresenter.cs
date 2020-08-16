@@ -2,6 +2,9 @@
 using UnityEngine;
 
 namespace TetrisGame.Presenter {
+	/// <summary>
+	/// Draw scores and apply animation while it changes
+	/// </summary>
 	public sealed class ScorePresenter {
 		readonly TMP_Text    _text;
 		readonly Animation   _animation;

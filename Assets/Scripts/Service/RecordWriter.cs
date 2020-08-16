@@ -4,6 +4,9 @@ using TetrisGame.State;
 using UnityEngine;
 
 namespace TetrisGame.Service {
+	/// <summary>
+	/// Write unique records to PlayerPrefs
+	/// </summary>
 	public sealed class RecordWriter {
 		public void Write(RecordState state, int score) {
 			var records = new List<int>(state.Records) { score }

@@ -8,6 +8,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace TetrisGame.EntryPoint {
+	/// <summary>
+	/// Start game simulation, send input state and reflect state changes
+	/// </summary>
 	public sealed class GameEntryPoint : MonoBehaviour {
 		[SerializeField]
 		GameGlobalSettings _globalSettings;

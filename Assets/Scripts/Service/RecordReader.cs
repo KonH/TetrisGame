@@ -3,6 +3,9 @@ using TetrisGame.State;
 using UnityEngine;
 
 namespace TetrisGame.Service {
+	/// <summary>
+	/// Read records from PlayerPrefs
+	/// </summary>
 	public sealed class RecordReader {
 		public void Read(RecordState state) {
 			var data = PlayerPrefs.GetString(nameof(RecordState), string.Empty);

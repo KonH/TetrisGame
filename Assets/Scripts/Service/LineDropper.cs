@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using TetrisGame.State;
 
 namespace TetrisGame.Service {
+	/// <summary>
+	/// Drop all lines above affected lines indexes
+	/// </summary>
 	public sealed class LineDropper {
 		readonly List<int> _sortedLines = new List<int>();
 

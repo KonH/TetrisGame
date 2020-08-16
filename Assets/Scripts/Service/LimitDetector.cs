@@ -2,6 +2,9 @@ using TetrisGame.State;
 using UnityEngine;
 
 namespace TetrisGame.Service {
+	/// <summary>
+	/// Detect that any figure element is out of field range
+	/// </summary>
 	public sealed class LimitDetector {
 		readonly int _width;
 

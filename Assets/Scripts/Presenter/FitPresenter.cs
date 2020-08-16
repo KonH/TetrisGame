@@ -1,6 +1,9 @@
 using UnityEngine;
 
 namespace TetrisGame.Presenter {
+	/// <summary>
+	/// Plays sound while figure was deconstructed
+	/// </summary>
 	public sealed class FitPresenter {
 		readonly AudioSource _source;
 

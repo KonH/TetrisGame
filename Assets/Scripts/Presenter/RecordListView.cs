@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.Assertions;
 
 namespace TetrisGame.Presenter {
+	/// <summary>
+	/// Represents all records and mark current one with color
+	/// </summary>
 	public sealed class RecordListView : MonoBehaviour {
 		[SerializeField]
 		Animation _animation;

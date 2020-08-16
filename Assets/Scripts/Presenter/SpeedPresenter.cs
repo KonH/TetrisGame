@@ -2,6 +2,9 @@
 using UnityEngine;
 
 namespace TetrisGame.Presenter {
+	/// <summary>
+	/// Draw speed level and apply animation while it changes
+	/// </summary>
 	public sealed class SpeedPresenter {
 		readonly TMP_Text  _text;
 		readonly Animation _animation;

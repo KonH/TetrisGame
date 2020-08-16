@@ -3,6 +3,9 @@ using TetrisGame.State;
 using UnityEngine;
 
 namespace TetrisGame.Presenter {
+	/// <summary>
+	/// Show figure elements using element pool, sync happens each frame because of constant falling
+	/// </summary>
 	public sealed class FigurePresenter {
 		readonly ElementPool _pool;
 		readonly Transform   _root;

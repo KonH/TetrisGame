@@ -3,6 +3,10 @@ using TetrisGame.State;
 using UnityEngine;
 
 namespace TetrisGame.Presenter {
+	/// <summary>
+	/// Show field elements using element pool, update happens only when field is dirty (any change performed in loop),
+	/// before returning elements to pool, try to re-use it to prevent unwanted activity changes
+	/// </summary>
 	public sealed class FieldPresenter {
 		readonly ElementPool _pool;
 		readonly Transform   _root;

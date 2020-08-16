@@ -2,6 +2,9 @@ using TetrisGame.State;
 using UnityEngine;
 
 namespace TetrisGame.Service {
+	/// <summary>
+	/// Create new random figure
+	/// </summary>
 	public sealed class FigureSpawner {
 		readonly int         _width;
 		readonly int         _height;

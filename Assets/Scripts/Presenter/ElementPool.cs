@@ -2,6 +2,9 @@
 using UnityEngine;
 
 namespace TetrisGame.Presenter {
+    /// <summary>
+    /// Service class to re-use element objects
+    /// </summary>
     public sealed class ElementPool {
         readonly GameObject _prefab;
 

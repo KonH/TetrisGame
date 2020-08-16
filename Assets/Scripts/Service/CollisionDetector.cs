@@ -2,6 +2,9 @@ using TetrisGame.State;
 using UnityEngine;
 
 namespace TetrisGame.Service {
+	/// <summary>
+	/// Detect is any figure element collides with any other field element
+	/// </summary>
 	public sealed class CollisionDetector {
 		public bool HasCollisions(IReadOnlyFieldState field, IReadOnlyFigureState figure) {
 			for ( var i = 0; i < figure.Elements.Count; i++ ) {

@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using TetrisGame.State;
 
 namespace TetrisGame.Service {
+	/// <summary>
+	/// Detect full filled lines (contains element at each position in some row)
+	/// </summary>
 	public sealed class LineDetector {
 		public void DetectLines(IReadOnlyFieldState field, List<int> result) {
 			result.Clear();

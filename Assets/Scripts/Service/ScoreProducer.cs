@@ -3,6 +3,9 @@ using TetrisGame.State;
 using UnityEngine;
 
 namespace TetrisGame.Service {
+	/// <summary>
+	/// Add scores after given lines collapsed, based on scorePerLines settings
+	/// </summary>
 	public sealed class ScoreProducer {
 		readonly IReadOnlyList<int> _scorePerLines;
 

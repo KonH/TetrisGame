@@ -3,6 +3,9 @@ using TetrisGame.State;
 using UnityEngine;
 
 namespace TetrisGame.Service {
+	/// <summary>
+	/// Coordinates all game logic parts
+	/// </summary>
 	public sealed class GameLoop {
 		readonly GameState           _state;
 		readonly FigureSpawner       _spawner;

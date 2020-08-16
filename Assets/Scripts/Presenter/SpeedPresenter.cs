@@ -15,6 +15,7 @@ namespace TetrisGame.Presenter {
 			if ( _currentLevel == displayLevel ) {
 				return;
 			}
+			_currentLevel = displayLevel;
 			_text.text = displayLevel.ToString();
 		}
 	}

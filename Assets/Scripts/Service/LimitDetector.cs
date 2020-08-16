@@ -10,7 +10,8 @@ namespace TetrisGame.Service {
 		}
 
 		public bool IsLimitReached(IReadOnlyFigureState figure) {
-			foreach ( var element in figure.Elements ) {
+			for ( var i = 0; i < figure.Elements.Count; i++ ) {
+				var element = figure.Elements[i];
 				if ( IsLimitReached(figure.Origin + element) ) {
 					return true;
 				}

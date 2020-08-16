@@ -4,7 +4,8 @@ using UnityEngine;
 namespace TetrisGame.Service {
 	public sealed class CollisionDetector {
 		public bool HasCollisions(IReadOnlyFieldState field, IReadOnlyFigureState figure) {
-			foreach ( var element in figure.Elements ) {
+			for ( var i = 0; i < figure.Elements.Count; i++ ) {
+				var element = figure.Elements[i];
 				if ( HasCollisions(field, figure.Origin + element) ) {
 					return true;
 				}

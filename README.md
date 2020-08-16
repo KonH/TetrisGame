@@ -1,5 +1,7 @@
 # Tetris Game
 
+![screenshot](Content/screenshot.png)
+
 ## Description
 
 Implementation of classic Tetris game using Unity engine.

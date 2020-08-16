@@ -122,6 +122,7 @@ namespace TetrisGame.Service {
 			_deconstructor.Place(_state.Field, _state.Figure);
 			_state.Figure.Reset();
 			ProcessLines();
+			_state.FitCount++;
 		}
 
 		void ProcessLines() {

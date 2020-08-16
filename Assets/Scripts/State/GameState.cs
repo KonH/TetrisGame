@@ -7,6 +7,7 @@ namespace TetrisGame.State {
 		public int         Scores   { get; set; }
 		public bool        Finished { get; set; }
 		public InputState  Input    { get; set; }
+		public int         FitCount { get; set; }
 
 		IReadOnlyFieldState  IReadOnlyGameState.Field   => Field;
 		IReadOnlyFigureState IReadOnlyGameState.Figure  => Figure;

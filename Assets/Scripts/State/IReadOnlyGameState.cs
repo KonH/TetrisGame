@@ -7,5 +7,6 @@ namespace TetrisGame.State {
 
 		int  Scores   { get; }
 		bool Finished { get; }
+		int  FitCount { get; }
 	}
 }

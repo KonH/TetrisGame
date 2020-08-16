@@ -20,6 +20,7 @@ namespace TetrisGame.EntryPoint {
 		FigurePresenter _figurePresenter;
 		ScorePresenter  _scorePresenter;
 		SpeedPresenter  _speedPresenter;
+		FitPresenter    _fitPresenter;
 
 		bool _finished;
 
@@ -37,8 +38,9 @@ namespace TetrisGame.EntryPoint {
 			_fieldPresenter = new FieldPresenter(
 				pool, _sceneSettings.ElementRoot, _globalSettings.Width, _globalSettings.Height);
 			_figurePresenter = new FigurePresenter(pool, _sceneSettings.FigureRoot);
-			_scorePresenter = new ScorePresenter(_sceneSettings.ScoresText);
+			_scorePresenter = new ScorePresenter(_sceneSettings.ScoresText, _sceneSettings.RewardAudioSource);
 			_speedPresenter = new SpeedPresenter(_sceneSettings.SpeedText);
+			_fitPresenter = new FitPresenter(_sceneSettings.FitAudioSource);
 
 			_sceneSettings.RecordListView.Hide();
 		}
@@ -62,9 +64,11 @@ namespace TetrisGame.EntryPoint {
 			_figurePresenter.Draw(state.Figure);
 			_scorePresenter.Draw(state.Scores);
 			_speedPresenter.Draw(state.Speed.Level);
+			_fitPresenter.Draw(state.FitCount);
 			if ( state.Finished ) {
 				_finished = true;
 				_sceneSettings.RecordListView.Show(state, HandleRestart);
+				_sceneSettings.GameOverAudioSource.Play();
 			}
 		}
 

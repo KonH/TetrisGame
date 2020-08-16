@@ -7,7 +7,7 @@ Implementation of classic Tetris game using Unity engine.
 Player needs to combine falling figures on limited field to create full lines,
 which add scores. Game is finished when a new figure cannot be placed on field.
 
-You can play it (here)[https://konhit.xyz/TetrisGame/].
+You can play it [here](https://konhit.xyz/TetrisGame/).
 
 ## Controls
 

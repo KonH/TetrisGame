@@ -5,6 +5,7 @@ using TetrisGame.State;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace TetrisGame.EntryPoint {
 	public sealed class GameEntryPoint : MonoBehaviour {
@@ -63,7 +64,7 @@ namespace TetrisGame.EntryPoint {
 			_speedPresenter.Draw(state.Speed.Level);
 			if ( state.Finished ) {
 				_finished = true;
-				_sceneSettings.RecordListView.Show(state);
+				_sceneSettings.RecordListView.Show(state, HandleRestart);
 			}
 		}
 
@@ -76,6 +77,10 @@ namespace TetrisGame.EntryPoint {
 			if ( ctx.started ) {
 				_loop.UpdateInput(input);
 			}
+		}
+
+		void HandleRestart() {
+			SceneManager.LoadScene("Game");
 		}
 	}
 }

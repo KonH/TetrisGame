@@ -19,6 +19,7 @@ namespace TetrisGame.Service {
 		readonly LineDropper         _lineDropper;
 		readonly ScoreProducer       _scoreProducer;
 		readonly RecordWriter        _recordWriter;
+		readonly SnapshotMaker       _snapshotMaker;
 
 		readonly List<int> _lines = new List<int>();
 
@@ -39,6 +40,7 @@ namespace TetrisGame.Service {
 			_lineDropper       = new LineDropper();
 			_scoreProducer     = new ScoreProducer(scorePerLines);
 			_recordWriter      = new RecordWriter();
+			_snapshotMaker     = new SnapshotMaker(_state);
 
 			var recordReader = new RecordReader();
 			recordReader.Read(_state.Records);
@@ -50,6 +52,7 @@ namespace TetrisGame.Service {
 				ResetInput();
 				return;
 			}
+			_snapshotMaker.TryTakeSnapshot();
 			MoveByInput();
 			MoveBySpeed(dt);
 			ResetInput();
@@ -74,6 +77,7 @@ namespace TetrisGame.Service {
 			_state.Figure.Reset();
 			_state.Finished = true;
 			_recordWriter.Write(_state.Records, _state.Scores);
+			_snapshotMaker.Save();
 			return false;
 		}
 

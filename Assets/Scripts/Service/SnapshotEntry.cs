@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TetrisGame.Service {
 	[Serializable]
-	struct SnapshotEntry {
+	public struct SnapshotEntry {
 		public InputState       InputState;
 		public int              FitCount;
 		public Vector2          Origin;

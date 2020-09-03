@@ -1,6 +1,9 @@
 {
     "name": "Editor",
-    "references": [],
+    "references": [
+        "GUID:085f89f5a1d84495d80605d7fe5b8f1c",
+        "GUID:2073c63de13da41e3bc88a3441be35e2"
+    ],
     "includePlatforms": [
         "Editor"
     ],

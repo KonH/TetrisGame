@@ -329,17 +329,13 @@ namespace TetrisGame.Editor {
 
 		static void SaveDataSet((string[] headers, float[][] values) dataSet, string dataSetPath) {
 			var sb = new StringBuilder();
-			sb.Append("\t");
-			foreach ( var header in dataSet.headers ) {
-				sb.Append(header).Append("\t");
-			}
+			sb.Append("Index\t");
+			sb.Append(string.Join("\t", dataSet.headers));
 			sb.AppendLine();
 			for ( var i = 0; i < dataSet.values.Length; i++ ) {
 				sb.Append(i).Append("\t");
 				var allValues = dataSet.values[i];
-				foreach ( var value in allValues ) {
-					sb.Append(value).Append("\t");
-				}
+				sb.Append(string.Join("\t", allValues));
 				sb.AppendLine();
 			}
 			File.WriteAllText(dataSetPath, sb.ToString());

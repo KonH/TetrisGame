@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 namespace TetrisGame.EntryPoint {
 	/// <summary>
@@ -16,9 +17,12 @@ namespace TetrisGame.EntryPoint {
 		GameGlobalSettings _globalSettings;
 
 		[SerializeField]
+		GameGeneticSettings _geneticSettings;
+
+		[SerializeField]
 		GameSceneSettings _sceneSettings;
 
-		GameLoop        _loop;
+		IGameLoop       _loop;
 		FieldPresenter  _fieldPresenter;
 		FigurePresenter _figurePresenter;
 		ScorePresenter  _scorePresenter;
@@ -29,14 +33,13 @@ namespace TetrisGame.EntryPoint {
 
 		void OnValidate() {
 			Assert.IsNotNull(_globalSettings, nameof(_globalSettings));
+			Assert.IsNotNull(_geneticSettings, nameof(_geneticSettings));
 			_sceneSettings.Validate();
 		}
 
 		void Awake() {
-			_loop = new GameLoop(
-				_globalSettings.Width, _globalSettings.Height,
-				_globalSettings.InitialSpeed, _globalSettings.LinesToIncrease, _globalSettings.IncreaseValue,
-				PopulateFigures(), _globalSettings.ScorePerLines);
+			var settings = GameLoopSettingsFactory.Create(_globalSettings, Random.Range(0, int.MaxValue));
+			_loop = CreateGameLoop(settings, _geneticSettings.Settings);
 			var pool = new ElementPool(_globalSettings.ElementPrefab);
 			_fieldPresenter = new FieldPresenter(
 				pool, _sceneSettings.ElementRoot, _globalSettings.Width, _globalSettings.Height);
@@ -48,13 +51,12 @@ namespace TetrisGame.EntryPoint {
 			_sceneSettings.RecordListView.Hide();
 		}
 
-		Vector2[][] PopulateFigures() {
-			var settings = _globalSettings.Figures;
-			var figures = new Vector2[settings.Count][];
-			for ( var i = 0; i < settings.Count; i++ ) {
-				figures[i] = settings[i].Elements;
+		IGameLoop CreateGameLoop(GameLoopSettings loopSettings, GeneticSettings geneticSettings) {
+			var useGenetic = (PlayerPrefs.GetInt("UseGenetic", 0) == 1);
+			if ( useGenetic ) {
+				return new GeneticGameLoop(loopSettings, geneticSettings);
 			}
-			return figures;
+			return new PlayerGameLoop(loopSettings);
 		}
 
 		void Update() {

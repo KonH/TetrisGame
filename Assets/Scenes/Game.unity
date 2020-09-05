@@ -1692,6 +1692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _globalSettings: {fileID: 11400000, guid: 97f01430e6ae542b59153222cf4fbad9, type: 2}
+  _geneticSettings: {fileID: 11400000, guid: 0ba2ff50217ef46518b575e6fc67ad60, type: 2}
   _sceneSettings:
     _elementRoot: {fileID: 1848662651}
     _figureRoot: {fileID: 1695225779}

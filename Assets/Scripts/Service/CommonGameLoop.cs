@@ -6,7 +6,7 @@ namespace TetrisGame.Service {
 	/// <summary>
 	/// Coordinates all game logic parts
 	/// </summary>
-	public sealed class GameLoop {
+	public sealed class CommonGameLoop : IGameLoop {
 		readonly GameState           _state;
 		readonly FigureSpawner       _spawner;
 		readonly FigureMover         _mover;
@@ -18,41 +18,41 @@ namespace TetrisGame.Service {
 		readonly LineDetector        _lineDetector;
 		readonly LineDropper         _lineDropper;
 		readonly ScoreProducer       _scoreProducer;
-		readonly RecordWriter        _recordWriter;
-		readonly SnapshotMaker       _snapshotMaker;
 
 		readonly List<int> _lines = new List<int>();
 
 		public IReadOnlyGameState State => _state;
 
-		public GameLoop(
-			int width, int height, float initialSpeed, int linesToIncrease, float increaseValue,
-			Vector2[][] figures, IReadOnlyList<int> scorePerLines) {
-			_state             = new GameState(width, height, initialSpeed);
-			_spawner           = new FigureSpawner(width, height, figures);
+		public CommonGameLoop(GameLoopSettings settings, GameState state) {
+			_state             = state;
+			_spawner           = new FigureSpawner(settings.Width, settings.Height, settings.RandomSeed, settings.Figures);
 			_mover             = new FigureMover();
 			_rotator           = new FigureRotator();
 			_collisionDetector = new CollisionDetector();
-			_limitDetector     = new LimitDetector(width);
+			_limitDetector     = new LimitDetector(settings.Width);
 			_deconstructor     = new FigureDeconstructor();
-			_speed             = new SpeedController(linesToIncrease, increaseValue);
+			_speed             = new SpeedController(settings.LinesToIncrease, settings.IncreaseValue);
 			_lineDetector      = new LineDetector();
 			_lineDropper       = new LineDropper();
-			_scoreProducer     = new ScoreProducer(scorePerLines);
-			_recordWriter      = new RecordWriter();
-			_snapshotMaker     = new SnapshotMaker(_state);
-
-			var recordReader = new RecordReader();
-			recordReader.Read(_state.Records);
+			_scoreProducer     = new ScoreProducer(settings.ScorePerLines);
 		}
 
 		public void Update(float dt) {
+			if ( PreUpdate() ) {
+				PostUpdate(dt);
+			}
+		}
+
+		internal bool PreUpdate() {
 			ResetField();
 			if ( !TrySpawnNewFigure() ) {
 				ResetInput();
-				return;
+				return false;
 			}
-			_snapshotMaker.TryTakeSnapshot();
+			return true;
+		}
+
+		internal void PostUpdate(float dt) {
 			MoveByInput();
 			MoveBySpeed(dt);
 			ResetInput();
@@ -76,8 +76,6 @@ namespace TetrisGame.Service {
 			}
 			_state.Figure.Reset();
 			_state.Finished = true;
-			_recordWriter.Write(_state.Records, _state.Scores);
-			_snapshotMaker.Save();
 			return false;
 		}
 

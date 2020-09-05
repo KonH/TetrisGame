@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7142cb081194ee99486d5557723875c, type: 3}
-  m_Name: GameGeneticSettings
+  m_Script: {fileID: 11500000, guid: 8808cdbfcfac4b9da78b9f652225a107, type: 3}
+  m_Name: GeneticTrainer
   m_EditorClassIdentifier: 
-  Settings:
-    FillEntryCoeff: 100
-    TopEntryCoeff: 100
-    HoleEntryCoeff: 600
+  MinFillEntry: 100
+  MaxFillEntry: 100
+  MinTopEntry: 100
+  MaxTopEntry: 100
+  MinHoleEntry: 600
+  MaxHoleEntry: 600
+  Step: 50

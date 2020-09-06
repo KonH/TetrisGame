@@ -135,6 +135,7 @@ namespace TetrisGame.Service {
 			_lineDropper.Drop(_state.Field, _lines);
 			_scoreProducer.AddScores(_state, _lines.Count);
 			_speed.ApplyLines(_state.Speed, _lines.Count);
+			_state.ClearedLines += _lines.Count;
 		}
 
 		bool ShouldDeconstruct() =>

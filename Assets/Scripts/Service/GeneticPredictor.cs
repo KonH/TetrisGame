@@ -1,7 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TetrisGame.State;
+using UnityEngine;
+using Random = System.Random;
 
 namespace TetrisGame.Service {
 	public sealed class GeneticPredictor {
@@ -18,13 +19,13 @@ namespace TetrisGame.Service {
 
 		public InputState[] GetBestInputs(IReadOnlyGameState gameState) {
 			var variants = GetVariants();
-			var variantFits = new (InputState[] inputs, long fit)[variants.Length];
+			var variantFits = new (InputState[] inputs, float fit)[variants.Length];
 			for ( var i = 0; i < variants.Length; i++ ) {
 				var variant = variants[i];
 				variantFits[i] = (variant, Simulate(gameState, variant));
 			}
 			var bestFit      = variantFits.Max(w => w.fit);
-			var bestVariants = variantFits.Where(w => w.fit == bestFit).ToArray();
+			var bestVariants = variantFits.Where(w => Mathf.Approximately(w.fit, bestFit)).ToArray();
 			var bestVariant  = bestVariants[_random.Next(0, bestVariants.Length)].inputs;
 			return bestVariant;
 		}
@@ -59,10 +60,10 @@ namespace TetrisGame.Service {
 			return result;
 		}
 
-		long Simulate(IReadOnlyGameState initialState, InputState[] inputs) {
+		float Simulate(IReadOnlyGameState initialState, InputState[] inputs) {
 			var loop = new CommonGameLoop(_loopSettings, CloneState(initialState));
 			PerformSimulation(loop, inputs);
-			return CalculateFit(loop.State);
+			return CalculateFit(initialState, loop.State);
 		}
 
 		GameState CloneState(IReadOnlyGameState oldState) {
@@ -95,41 +96,38 @@ namespace TetrisGame.Service {
 			}
 		}
 
-		long CalculateFit(IReadOnlyGameState state) {
-			var fieldCoeff = GetFieldCoefficient(state.Field);
-			return state.Scores - fieldCoeff;
-		}
-
-		long GetFieldCoefficient(IReadOnlyFieldState field) {
-			var value = 0L;
-
-			var topPositions = new int[field.Width];
-			for ( var x = 0; x < field.Width; x++ ) {
-				for ( var y = 0; y < field.Height; y++ ) {
-					if ( !field.GetState(x, y) ) {
-						continue;
-					}
-					value += (y + 1) * _geneticSettings.FillEntryCoeff;
-					if ( topPositions[x] < y ) {
-						topPositions[x] = y;
+		float CalculateFit(IReadOnlyGameState oldState, IReadOnlyGameState state) {
+			var linesCleared = (state.ClearedLines - oldState.ClearedLines);
+			var heights      = new int[state.Field.Width];
+			for ( var x = 0; x < state.Field.Width; x++ ) {
+				for ( var y = 0; y < state.Field.Height; y++ ) {
+					if ( state.Field.GetState(x, y) && (y > heights[x]) ) {
+						heights[x] = y;
 					}
 				}
 			}
-
-			for ( var i = 0; i < topPositions.Length; i++ ) {
-				value += topPositions[i] * _geneticSettings.TopEntryCoeff;
-			}
-
-			for ( var x = 0; x < field.Width; x++ ) {
-				for ( var y = 0; y < topPositions[x]; y++ ) {
-					if ( field.GetState(x, y) ) {
-						continue;
+			var weightedHeight = heights.Max();
+			var cumulativeHeight = heights.Sum();
+			var relativeHeight = weightedHeight - heights.Min();
+			var holes = 0;
+			for ( var x = 0; x < state.Field.Width; x++ ) {
+				for ( var y = 0; y < state.Field.Height; y++ ) {
+					if ( !state.Field.GetState(x, y) && (y < heights[x]) ) {
+						holes++;
 					}
-					value += (y + 1) * _geneticSettings.HoleEntryCoeff;
 				}
 			}
-
-			return value;
+			var roughness = 0;
+			for ( var i = 1; i < heights.Length; i++ ) {
+				roughness += (heights[i] - heights[i - 1]);
+			}
+			return
+				linesCleared * _geneticSettings.LinesCleared +
+				weightedHeight * _geneticSettings.WeightedHeight +
+				cumulativeHeight * _geneticSettings.CumulativeHeight +
+				relativeHeight * _geneticSettings.RelativeHeight +
+				holes * _geneticSettings.Holes +
+				roughness * _geneticSettings.Roughness;
 		}
 	}
 }

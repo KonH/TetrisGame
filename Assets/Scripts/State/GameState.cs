@@ -1,13 +1,14 @@
 namespace TetrisGame.State {
 	public sealed class GameState : IReadOnlyGameState {
-		public FieldState  Field    { get; }
-		public FigureState Figure   { get; }
-		public SpeedState  Speed    { get; }
-		public RecordState Records  { get; }
-		public int         Scores   { get; set; }
-		public bool        Finished { get; set; }
-		public InputState  Input    { get; set; }
-		public int         FitCount { get; set; }
+		public FieldState  Field        { get; }
+		public FigureState Figure       { get; }
+		public SpeedState  Speed        { get; }
+		public RecordState Records      { get; }
+		public int         Scores       { get; set; }
+		public int         ClearedLines { get; set; }
+		public bool        Finished     { get; set; }
+		public InputState  Input        { get; set; }
+		public int         FitCount     { get; set; }
 
 		IReadOnlyFieldState  IReadOnlyGameState.Field   => Field;
 		IReadOnlyFigureState IReadOnlyGameState.Figure  => Figure;

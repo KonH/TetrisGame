@@ -12,10 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8808cdbfcfac4b9da78b9f652225a107, type: 3}
   m_Name: GeneticTrainer
   m_EditorClassIdentifier: 
-  MinFillEntry: 100
-  MaxFillEntry: 100
-  MinTopEntry: 100
-  MaxTopEntry: 100
-  MinHoleEntry: 600
-  MaxHoleEntry: 600
-  Step: 50
+  GenerationSize: 100
+  SeedCount: 5
+  MutationRate: 0.05
+  MutationStep: 0.2

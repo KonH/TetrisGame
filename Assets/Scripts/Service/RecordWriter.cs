@@ -8,10 +8,10 @@ namespace TetrisGame.Service {
 	/// Write unique records to PlayerPrefs
 	/// </summary>
 	public sealed class RecordWriter {
-		public void Write(RecordState state, int score) {
-			var records = new List<int>(state.Records) { score }
+		public void Write(RecordState state, RecordUnit unit) {
+			var records = new List<RecordUnit>(state.Records) { unit }
 				.Distinct()
-				.OrderByDescending(k => k);
+				.OrderByDescending(u => u.Scores);
 			state.Records.Clear();
 			state.Records.AddRange(records);
 			Flush(state);

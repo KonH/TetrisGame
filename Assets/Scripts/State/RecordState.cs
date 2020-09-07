@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 namespace TetrisGame.State {
 	public sealed class RecordState : IReadOnlyRecordState {
-		public List<int> Records { get; } = new List<int>();
+		public List<RecordUnit> Records { get; } = new List<RecordUnit>();
 
-		IReadOnlyList<int> IReadOnlyRecordState.Records => Records;
+		IReadOnlyList<RecordUnit> IReadOnlyRecordState.Records => Records;
 	}
 }

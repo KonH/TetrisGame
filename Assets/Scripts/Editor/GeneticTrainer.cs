@@ -69,7 +69,7 @@ namespace TetrisGame.Editor {
 				var subResults = new ConcurrentBag<long>();
 				Parallel.ForEach(input.seeds, seed => {
 					var loopSettings = GameLoopSettingsFactory.Create(globalSettings, seed);
-					var loop         = new GeneticGameLoop(loopSettings, input.settings);
+					var loop         = new GeneticGameLoop(loopSettings, input.settings, false);
 					while ( !loop.State.Finished ) {
 						loop.Update(0.33f);
 					}

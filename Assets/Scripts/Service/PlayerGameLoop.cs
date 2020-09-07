@@ -10,9 +10,11 @@ namespace TetrisGame.Service {
 		public IReadOnlyGameState State => _state;
 
 		public PlayerGameLoop(GameLoopSettings settings) {
-			_loop = new CommonGameLoop(settings, _state);
+			_state = new GameState(settings.Width, settings.Height, settings.InitialSpeed);
+			_loop  = new CommonGameLoop(settings, _state);
 			var recordReader = new RecordReader();
 			recordReader.Read(_state.Records);
+			_recordWriter = new RecordWriter();
 		}
 
 		public void Update(float dt) {

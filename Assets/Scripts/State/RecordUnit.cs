@@ -14,16 +14,16 @@ namespace TetrisGame.State {
 			if ( parts.Length < 2 ) {
 				return false;
 			}
-			if ( !int.TryParse(parts[0], out var scores) ) {
+			if ( !int.TryParse(parts[1].Trim(), out var scores) ) {
 				return false;
 			}
-			var isAi = (parts[1] == "AI");
+			var isAi = (parts[0] == "AI");
 			unit = new RecordUnit(scores, isAi);
 			return true;
 		}
 
 		public override string ToString() {
-			return $"{(IsAI ? "AI" : "YOU")}:{Scores}";
+			return $"{(IsAI ? "AI" : "YOU")}: {Scores}";
 		}
 	}
 }

@@ -22,14 +22,16 @@ You can play it [here](https://konhit.xyz/TetrisGame/).
 - Keyboard input
 - Simple 3D graphics
 - Local leaderboard
+- Player/AI mode
 - Animations
 - Sounds
 
 ## Architecture
 
+- **Editor/GeneticTrainer** - genetic algorithm trainer to detect better AI parameters
 - **EntryPoint** - composition of presenters and GameLoop
 - **Presenter** - views to reflect read only game state changes
-- **Service** - game logic, separated to different classes; uses writable game state; GameLoop as a services composition
+- **Service** - game logic, separated to different classes; uses writable game state; GameLoop as a services composition; GeneticPlayer as AI implementation selecting better movements based on set of parameters
 - **Settings** - required configuration, separated to global and scene settings 
 - **State** - raw game data, separated to writable and read only representations
 

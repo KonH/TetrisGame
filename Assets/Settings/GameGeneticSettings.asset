@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: GameGeneticSettings
   m_EditorClassIdentifier: 
   Settings:
-    FillEntryCoeff: 100
-    TopEntryCoeff: 100
-    HoleEntryCoeff: 600
+    LinesCleared: 0.4522387
+    WeightedHeight: -0.3082946
+    CumulativeHeight: -1.173967
+    RelativeHeight: -0.6637383
+    Holes: -0.08530037
+    Roughness: 0.1435915

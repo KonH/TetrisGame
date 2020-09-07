@@ -52,9 +52,9 @@ namespace TetrisGame.EntryPoint {
 		}
 
 		IGameLoop CreateGameLoop(GameLoopSettings loopSettings, GeneticSettings geneticSettings) {
-			var useGenetic = (PlayerPrefs.GetInt("UseGenetic", 0) == 1);
+			var useGenetic = GameRuntimeSettings.Instance.UseAI;
 			if ( useGenetic ) {
-				return new GeneticGameLoop(loopSettings, geneticSettings);
+				return new GeneticGameLoop(loopSettings, geneticSettings, true);
 			}
 			return new PlayerGameLoop(loopSettings);
 		}
@@ -72,7 +72,7 @@ namespace TetrisGame.EntryPoint {
 			_fitPresenter.Draw(state.FitCount);
 			if ( state.Finished ) {
 				_finished = true;
-				_sceneSettings.RecordListView.Show(state, HandleRestart);
+				_sceneSettings.RecordListView.Show(state, HandleRestart, HandleMenu);
 				_sceneSettings.GameOverAudioSource.Play();
 			}
 		}
@@ -90,6 +90,10 @@ namespace TetrisGame.EntryPoint {
 
 		void HandleRestart() {
 			SceneManager.LoadScene("Game");
+		}
+
+		void HandleMenu() {
+			SceneManager.LoadScene("Menu");
 		}
 	}
 }

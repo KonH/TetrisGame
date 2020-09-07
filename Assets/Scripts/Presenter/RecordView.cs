@@ -1,3 +1,4 @@
+using TetrisGame.State;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -13,8 +14,8 @@ namespace TetrisGame.Presenter {
 			Assert.IsNotNull(_text, nameof(_text));
 		}
 
-		public void Draw(bool found, bool current, int score = 0) {
-			_text.text = found ? score.ToString() : "-";
+		public void Draw(bool found, bool current, RecordUnit unit) {
+			_text.text = found ? unit.ToString() : "-";
 			if ( current ) {
 				_text.color = CurrentColor;
 			}

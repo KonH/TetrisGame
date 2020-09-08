@@ -69,14 +69,16 @@ namespace TetrisGame.Service {
 			}
 
 			var count = results.Count;
-			const int rotations = 3;
-			for ( var i = 0; i < count; i++ ) {
-				var rawInputs = results[i];
-				var inputWithRotations = rawInputs.ToList();
-				for ( var j = 0; j < rotations; j++ ) {
-					inputWithRotations.Insert(0, InputState.Rotate);
+			const int maxRotations = 3;
+			for ( var rotations = 1; rotations <= maxRotations; rotations++ ) {
+				for ( var i = 0; i < count; i++ ) {
+					var rawInputs          = results[i];
+					var inputWithRotations = rawInputs.ToList();
+					for ( var j = 0; j < rotations; j++ ) {
+						inputWithRotations.Insert(0, InputState.Rotate);
+					}
+					results.Add(inputWithRotations.ToArray());
 				}
-				results.Add(inputWithRotations.ToArray());
 			}
 			return results.ToArray();
 		}

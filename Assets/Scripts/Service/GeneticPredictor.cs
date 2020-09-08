@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using JetBrains.Annotations;
 using TetrisGame.State;
 using UnityEngine;
 using Random = System.Random;
@@ -9,25 +11,52 @@ namespace TetrisGame.Service {
 		readonly GameLoopSettings _loopSettings;
 		readonly GeneticSettings  _geneticSettings;
 
+		[CanBeNull]
+		readonly GeneticDebugger _debugger;
+
 		readonly Random _random;
 
-		public GeneticPredictor(GameLoopSettings loopSettings, GeneticSettings geneticSettings) {
+		public GeneticPredictor(
+			GameLoopSettings loopSettings, GeneticSettings geneticSettings, [CanBeNull] GeneticDebugger debugger) {
 			_loopSettings    = loopSettings;
 			_geneticSettings = geneticSettings;
+			_debugger        = debugger;
 			_random          = new Random(loopSettings.RandomSeed);
 		}
 
 		public InputState[] GetBestInputs(IReadOnlyGameState gameState) {
+			_debugger?.Write("h1", $"GetBestInput #{gameState.FitCount}");
 			var variants = GetVariants();
-			var variantFits = new (InputState[] inputs, float fit)[variants.Length];
+			var variantFits = new (InputState[] inputs, IReadOnlyGameState state, float fit)[variants.Length];
+			_debugger?.OpenTag("table");
+			_debugger?.OpenTag("tr");
 			for ( var i = 0; i < variants.Length; i++ ) {
+				_debugger?.OpenTag("td", "style=\"width: 5em\"");
 				var variant = variants[i];
-				variantFits[i] = (variant, Simulate(gameState, variant));
+				_debugger?.OpenTag("div", "style=\"height: 16em\"");
+				_debugger?.WriteVariant(i.ToString(), variant);
+				var (simulatedState, fit) = Simulate(gameState, variant);
+				variantFits[i] = (variant, simulatedState, fit);
+				_debugger?.CloseTag();
+				_debugger?.WriteVariantState(gameState, simulatedState);
+				_debugger?.CloseTag();
 			}
-			var bestFit      = variantFits.Max(w => w.fit);
-			var bestVariants = variantFits.Where(w => Mathf.Approximately(w.fit, bestFit)).ToArray();
-			var bestVariant  = bestVariants[_random.Next(0, bestVariants.Length)].inputs;
-			return bestVariant;
+			_debugger?.CloseTag();
+			_debugger?.CloseTag();
+			var bestFit       = variantFits.Max(w => w.fit);
+			var bestVariants  = variantFits.Where(w => Mathf.Approximately(w.fit, bestFit)).ToArray();
+			var otherVariants = variantFits.Where(w => !Mathf.Approximately(w.fit, bestFit)).ToArray();
+			var bestIndex     = _random.Next(0, bestVariants.Length);
+			var bestVariant   = bestVariants[bestIndex];
+			_debugger?.WriteWithHeader("Best fit", bestFit);
+			_debugger?.WriteVariants("Best variants", bestVariants.Select(v => v.inputs).ToArray());
+			_debugger?.WriteVariant($"Best variant ({bestIndex})", bestVariant.inputs);
+			_debugger?.WriteFinalState(
+				gameState,
+				bestVariant.state,
+				bestVariants.Select(v => v.state).ToArray(),
+				otherVariants.Select(v => v.state).ToArray());
+			return bestVariant.inputs;
 		}
 
 		InputState[][] GetVariants() {
@@ -60,10 +89,11 @@ namespace TetrisGame.Service {
 			return result;
 		}
 
-		float Simulate(IReadOnlyGameState initialState, InputState[] inputs) {
-			var loop = new CommonGameLoop(_loopSettings, CloneState(initialState));
+		(IReadOnlyGameState state, float fit) Simulate(IReadOnlyGameState initialState, InputState[] inputs) {
+			var state = CloneState(initialState);
+			var loop  = new CommonGameLoop(_loopSettings, state);
 			PerformSimulation(loop, inputs);
-			return CalculateFit(initialState, loop.State);
+			return (state, CalculateFit(initialState, loop.State));
 		}
 
 		GameState CloneState(IReadOnlyGameState oldState) {
@@ -122,13 +152,21 @@ namespace TetrisGame.Service {
 			for ( var i = 1; i < heights.Length; i++ ) {
 				roughness += (heights[i] - heights[i - 1]);
 			}
-			return
+			var result =
 				linesCleared * _geneticSettings.LinesCleared +
 				weightedHeight * _geneticSettings.WeightedHeight +
 				cumulativeHeight * _geneticSettings.CumulativeHeight +
 				relativeHeight * _geneticSettings.RelativeHeight +
 				holes * _geneticSettings.Holes +
 				roughness * _geneticSettings.Roughness;
+			_debugger?.WriteWithHeader("LC", linesCleared);
+			_debugger?.WriteWithHeader("WH", weightedHeight);
+			_debugger?.WriteWithHeader("CH", cumulativeHeight);
+			_debugger?.WriteWithHeader("RH", relativeHeight);
+			_debugger?.WriteWithHeader("H", holes);
+			_debugger?.WriteWithHeader("R", roughness);
+			_debugger?.WriteWithHeader("FIT", result);
+			return result;
 		}
 	}
 }

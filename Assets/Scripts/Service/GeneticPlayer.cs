@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using TetrisGame.State;
 
 namespace TetrisGame.Service {
@@ -9,8 +10,9 @@ namespace TetrisGame.Service {
 
 		int _prevFitCount = -1;
 
-		public GeneticPlayer(GameLoopSettings loopSettings, GeneticSettings geneticSettings) {
-			_predictor = new GeneticPredictor(loopSettings, geneticSettings);
+		public GeneticPlayer(
+			GameLoopSettings loopSettings, GeneticSettings geneticSettings, [CanBeNull] GeneticDebugger debugger) {
+			_predictor = new GeneticPredictor(loopSettings, geneticSettings, debugger);
 		}
 
 		public void Update(GameState state) {

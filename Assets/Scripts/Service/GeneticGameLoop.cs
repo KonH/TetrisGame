@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using TetrisGame.State;
 
 namespace TetrisGame.Service {
@@ -8,12 +9,17 @@ namespace TetrisGame.Service {
 		readonly GeneticPlayer _geneticPlayer;
 		readonly RecordWriter  _recordWriter;
 
+		[CanBeNull]
+		readonly GeneticDebugger _debugger;
+
 		public IReadOnlyGameState State => _loop.State;
 
-		public GeneticGameLoop(GameLoopSettings loopSettings, GeneticSettings geneticSettings, bool useRecords) {
+		public GeneticGameLoop(
+			GameLoopSettings loopSettings, GeneticSettings geneticSettings, bool useRecords) {
 			_state         = new GameState(loopSettings.Width, loopSettings.Height, loopSettings.InitialSpeed);
 			_loop          = new CommonGameLoop(loopSettings, _state);
-			_geneticPlayer = new GeneticPlayer(loopSettings, geneticSettings);
+			_debugger      = geneticSettings.UseDebugging ? new GeneticDebugger() : null;
+			_geneticPlayer = new GeneticPlayer(loopSettings, geneticSettings, _debugger);
 
 			if ( !useRecords ) {
 				return;
@@ -28,6 +34,7 @@ namespace TetrisGame.Service {
 				_geneticPlayer.Update(_state);
 				_loop.PostUpdate(dt);
 			} else {
+				_debugger?.Dispose();
 				_recordWriter?.Write(_state.Records, new RecordUnit(_state.Scores, true));
 			}
 		}

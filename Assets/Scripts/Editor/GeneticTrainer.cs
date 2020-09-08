@@ -150,7 +150,8 @@ namespace TetrisGame.Editor {
 					Random.Range(-1.0f, 1.0f),
 					Random.Range(-1.0f, 1.0f),
 					Random.Range(-1.0f, 1.0f),
-					Random.Range(-1.0f, 1.0f));
+					Random.Range(-1.0f, 1.0f),
+					false);
 			}
 			return (0, randomSettings);
 		}
@@ -180,7 +181,8 @@ namespace TetrisGame.Editor {
 					float.Parse(parts[2]),
 					float.Parse(parts[3]),
 					float.Parse(parts[4]),
-					float.Parse(parts[5])
+					float.Parse(parts[5]),
+					false
 				));
 			}
 			return allSettings.ToArray();
@@ -199,7 +201,8 @@ namespace TetrisGame.Editor {
 				Cross(leftParent.CumulativeHeight, rightParent.CumulativeHeight),
 				Cross(leftParent.RelativeHeight, rightParent.RelativeHeight),
 				Cross(leftParent.Holes, rightParent.Holes),
-				Cross(leftParent.Roughness, rightParent.Roughness));
+				Cross(leftParent.Roughness, rightParent.Roughness),
+				false);
 		}
 
 		GeneticSettings Mutate(GeneticSettings source) {
@@ -209,7 +212,8 @@ namespace TetrisGame.Editor {
 				Mutate(source.CumulativeHeight),
 				Mutate(source.RelativeHeight),
 				Mutate(source.Holes),
-				Mutate(source.Roughness));
+				Mutate(source.Roughness),
+				false);
 		}
 
 		float Mutate(float source) {

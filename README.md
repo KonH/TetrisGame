@@ -28,12 +28,17 @@ You can play it [here](https://konhit.xyz/TetrisGame/).
 
 ## Architecture
 
-- **Editor/GeneticTrainer** - genetic algorithm trainer to detect better AI parameters
 - **EntryPoint** - composition of presenters and GameLoop
 - **Presenter** - views to reflect read only game state changes
-- **Service** - game logic, separated to different classes; uses writable game state; GameLoop as a services composition; GeneticPlayer as AI implementation selecting better movements based on set of parameters
+- **Service** - game logic, separated to different classes; uses writable game state; GameLoop as a services composition
 - **Settings** - required configuration, separated to global and scene settings 
 - **State** - raw game data, separated to writable and read only representations
+
+# AI
+
+- **Editor/GeneticTrainer** - genetic algorithm trainer to detect better AI parameters
+- **Service/GeneticPlayer** - AI implementation selecting better movements based on set of parameters
+- **Service/GeneticDebugger** - AI debug utility to investigate move selection logic using game logs in [html format](Content/LogSample.html)
 
 ## Credits
 

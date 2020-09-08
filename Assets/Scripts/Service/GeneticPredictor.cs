@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
 using TetrisGame.State;
@@ -25,21 +24,26 @@ namespace TetrisGame.Service {
 		}
 
 		public InputState[] GetBestInputs(IReadOnlyGameState gameState) {
+			_debugger?.OpenTag("div");
 			_debugger?.Write("h1", $"GetBestInput #{gameState.FitCount}");
 			var variants = GetVariants();
 			var variantFits = new (InputState[] inputs, IReadOnlyGameState state, float fit)[variants.Length];
-			_debugger?.OpenTag("table");
+			_debugger?.OpenTag("table", "class=\"variant-table\"");
 			_debugger?.OpenTag("tr");
 			for ( var i = 0; i < variants.Length; i++ ) {
-				_debugger?.OpenTag("td", "style=\"width: 5em\"");
+				_debugger?.OpenTag("td", "class=\"variant-info\"");
 				var variant = variants[i];
-				_debugger?.OpenTag("div", "style=\"height: 16em\"");
+				_debugger?.OpenTag("div");
 				_debugger?.WriteVariant(i.ToString(), variant);
 				var (simulatedState, fit) = Simulate(gameState, variant);
 				variantFits[i] = (variant, simulatedState, fit);
 				_debugger?.CloseTag();
 				_debugger?.WriteVariantState(gameState, simulatedState);
 				_debugger?.CloseTag();
+				if ( ((i + 1) % 9) == 0 ) {
+					_debugger?.CloseTag();
+					_debugger?.OpenTag("tr");
+				}
 			}
 			_debugger?.CloseTag();
 			_debugger?.CloseTag();
@@ -56,6 +60,7 @@ namespace TetrisGame.Service {
 				bestVariant.state,
 				bestVariants.Select(v => v.state).ToArray(),
 				otherVariants.Select(v => v.state).ToArray());
+			_debugger?.CloseTag();
 			return bestVariant.inputs;
 		}
 

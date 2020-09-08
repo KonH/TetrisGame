@@ -26,16 +26,16 @@ namespace TetrisGame.Service {
 			Write("p { margin-top: 0.5em; margin-bottom: 0.5em; }");
 			Write("td, th { border: 1px solid black; }");
 			Write("table { border-collapse: collapse; }");
-			Write(".figure { width: 1em; height: 1em; background-color: lightgray }");
-			Write(".field { width: 1em; height: 1em; background-color: gray }");
-			Write(".best { width: 1em; height: 1em; background-color: green }");
-			Write(".nice { width: 1em; height: 1em; background-color: yellow }");
-			Write(".bad { width: 1em; height: 1em; background-color: red }");
-			Write(".empty { width: 1em; height: 1em; background-color: white }");
-			Write(".figure-small { width: 0.5em; height: 0.5em; background-color: lightgray }");
-			Write(".field-small { width: 0.5em; height: 0.5em; background-color: gray }");
-			Write(".best-small { width: 0.5em; height: 0.5em; background-color: green }");
-			Write(".empty-small { width: 0.5em; height: 0.5em; background-color: white }");
+			Write(".variant-table { table-layout: fixed; width: 100%; font-size: 0.75em; }");
+			Write(".variant-info { width: 11%; }");
+			Write(".state { width: 16em; height: 32em; }");
+			Write(".state-small { width: 8em; height: 16em; vertical-align: baseline }");
+			Write(".figure { background-color: lightgray }");
+			Write(".field { background-color: gray }");
+			Write(".best { background-color: green }");
+			Write(".nice { background-color: yellow }");
+			Write(".bad { background-color: red }");
+			Write(".empty { background-color: white }");
 			CloseTag();
 			CloseTag();
 			OpenTag("body");
@@ -67,7 +67,7 @@ namespace TetrisGame.Service {
 		public void WriteFinalState(
 			IReadOnlyGameState state,
 			IReadOnlyGameState bestVariant, IReadOnlyGameState[] bestVariants, IReadOnlyGameState[] otherVariants) {
-			OpenTag("table");
+			OpenTag("table", "class=\"state\"");
 			for ( var y = state.Field.Height; y >= 0; y-- ) {
 				OpenTag("tr");
 				for ( var x = 0; x < state.Field.Width; x++ ) {
@@ -82,7 +82,7 @@ namespace TetrisGame.Service {
 		}
 
 		public void WriteVariantState(IReadOnlyGameState state, IReadOnlyGameState variant) {
-			OpenTag("table");
+			OpenTag("table", "class=\"state-small\"");
 			for ( var y = state.Field.Height; y >= 0; y-- ) {
 				OpenTag("tr");
 				for ( var x = 0; x < state.Field.Width; x++ ) {
@@ -151,15 +151,15 @@ namespace TetrisGame.Service {
 
 		string GetVariantFieldClass(IReadOnlyGameState state, IReadOnlyGameState variant, int x, int y) {
 			if ( state.Field.GetState(x, y) ) {
-				return "field-small";
+				return "field";
 			}
 			if ( IsFigurePresent(state, x, y) ) {
-				return "figure-small";
+				return "figure";
 			}
 			if ( variant.Field.GetState(x, y) ) {
-				return "best-small";
+				return "best";
 			}
-			return "empty-small";
+			return "empty";
 		}
 
 		bool IsFigurePresent(IReadOnlyGameState state, int x, int y) =>

@@ -69,6 +69,7 @@ namespace TetrisGame.Service {
 		GameState CloneState(IReadOnlyGameState oldState) {
 			var settings  = _loopSettings;
 			var state     = new GameState(settings.Width, settings.Height, settings.InitialSpeed);
+			state.ClearedLines = oldState.ClearedLines;
 			var oldFigure = oldState.Figure;
 			var newFigure = state.Figure;
 			newFigure.Elements.AddRange(oldFigure.Elements);

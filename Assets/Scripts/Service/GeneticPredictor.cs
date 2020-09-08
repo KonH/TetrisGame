@@ -33,7 +33,7 @@ namespace TetrisGame.Service {
 		InputState[][] GetVariants() {
 			var results = new List<InputState[]> { new[] { InputState.None } };
 
-			const int offset = 7;
+			const int offset = 5;
 			for ( var i = 1; i < offset; i++ ) {
 				results.Add(FillMovement(i, InputState.MoveLeft));
 				results.Add(FillMovement(i, InputState.MoveRight));

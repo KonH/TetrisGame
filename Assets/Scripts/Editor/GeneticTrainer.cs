@@ -122,6 +122,12 @@ namespace TetrisGame.Editor {
 			          $"\nBest result: {(float) bestScores / SeedCount:F}\n" +
 			          $"Log saved into '{logFilePath}', " +
 			          $"result saved into '{resultFilePath}', elapsed time: {sw.Elapsed.TotalMinutes:F2} min");
+			var geneticSettings =
+				AssetDatabase.LoadAssetAtPath<GameGeneticSettings>("Assets/Settings/GameGeneticSettings.asset");
+			bestSettings[0].UseDebugging = geneticSettings.Settings.UseDebugging;
+			geneticSettings.Settings = bestSettings[0];
+			EditorUtility.SetDirty(geneticSettings);
+			AssetDatabase.SaveAssets();
 		}
 
 		(int generationIndex, GeneticSettings[]) LoadLatestGeneration() {

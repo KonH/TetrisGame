@@ -12,7 +12,7 @@ namespace TetrisGame.State {
 		}
 
 		public bool GetState(int x, int y) {
-			return Field[x, y];
+			return (x >= 0) && (y >= 0) && (x < Width) && (y < Height) && Field[x, y];
 		}
 	}
 }

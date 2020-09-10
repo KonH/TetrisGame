@@ -24,43 +24,24 @@ namespace TetrisGame.Service {
 		}
 
 		public InputState[] GetBestInputs(IReadOnlyGameState gameState) {
-			_debugger?.OpenTag("div");
-			_debugger?.Write("h1", $"GetBestInput #{gameState.FitCount}");
+			_debugger?.BeforeBestInputSelection(gameState);
 			var variants = GetVariants();
 			var variantFits = new (InputState[] inputs, IReadOnlyGameState state, float fit)[variants.Length];
-			_debugger?.OpenTag("table", "class=\"variant-table\"");
-			_debugger?.OpenTag("tr");
+			_debugger?.BeforeAllSimulations();
 			for ( var i = 0; i < variants.Length; i++ ) {
-				_debugger?.OpenTag("td", "class=\"variant-info\"");
 				var variant = variants[i];
-				_debugger?.OpenTag("div");
-				_debugger?.WriteVariant(i.ToString(), variant);
 				var (simulatedState, fit) = Simulate(gameState, variant);
 				variantFits[i] = (variant, simulatedState, fit);
-				_debugger?.CloseTag();
-				_debugger?.WriteVariantState(gameState, simulatedState);
-				_debugger?.CloseTag();
-				if ( ((i + 1) % 9) == 0 ) {
-					_debugger?.CloseTag();
-					_debugger?.OpenTag("tr");
-				}
+				_debugger?.AfterSimulation(i, variant, gameState, simulatedState);
 			}
-			_debugger?.CloseTag();
-			_debugger?.CloseTag();
+			_debugger?.AfterAllSimulations();
 			var bestFit       = variantFits.Max(w => w.fit);
 			var bestVariants  = variantFits.Where(w => Mathf.Approximately(w.fit, bestFit)).ToArray();
 			var otherVariants = variantFits.Where(w => !Mathf.Approximately(w.fit, bestFit)).ToArray();
 			var bestIndex     = _random.Next(0, bestVariants.Length);
 			var bestVariant   = bestVariants[bestIndex];
-			_debugger?.WriteWithHeader("Best fit", bestFit);
-			_debugger?.WriteVariants("Best variants", bestVariants.Select(v => v.inputs).ToArray());
-			_debugger?.WriteVariant($"Best variant ({bestIndex})", bestVariant.inputs);
-			_debugger?.WriteFinalState(
-				gameState,
-				bestVariant.state,
-				bestVariants.Select(v => v.state).ToArray(),
-				otherVariants.Select(v => v.state).ToArray());
-			_debugger?.CloseTag();
+			_debugger?
+				.AfterBestInputSelection(bestFit, gameState, bestVariants, bestVariant, otherVariants, bestIndex);
 			return bestVariant.inputs;
 		}
 
@@ -166,13 +147,8 @@ namespace TetrisGame.Service {
 				relativeHeight * _geneticSettings.RelativeHeight +
 				holes * _geneticSettings.Holes +
 				roughness * _geneticSettings.Roughness;
-			_debugger?.WriteWithHeader("LC", linesCleared);
-			_debugger?.WriteWithHeader("WH", weightedHeight);
-			_debugger?.WriteWithHeader("CH", cumulativeHeight);
-			_debugger?.WriteWithHeader("RH", relativeHeight);
-			_debugger?.WriteWithHeader("H", holes);
-			_debugger?.WriteWithHeader("R", roughness);
-			_debugger?.WriteWithHeader("FIT", result);
+			_debugger?.WriteFitSummary(
+				linesCleared, weightedHeight, cumulativeHeight, relativeHeight, holes, roughness, result);
 			return result;
 		}
 	}

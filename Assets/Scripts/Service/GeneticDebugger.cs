@@ -41,7 +41,65 @@ namespace TetrisGame.Service {
 			OpenTag("body");
 		}
 
-		public void OpenTag(string name, string attributes = null) {
+		public void BeforeBestInputSelection(IReadOnlyGameState gameState) {
+			OpenTag("div");
+			Write("h1", $"GetBestInput #{gameState.FitCount}");
+		}
+
+		public void BeforeAllSimulations() {
+			OpenTag("table", "class=\"variant-table\"");
+			OpenTag("tr");
+		}
+
+		public void AfterSimulation(
+			int i, InputState[] variant, IReadOnlyGameState gameState, IReadOnlyGameState simulatedState) {
+			OpenTag("td", "class=\"variant-info\"");
+			OpenTag("div");
+			WriteVariant(i.ToString(), variant);
+			CloseTag();
+			WriteVariantState(gameState, simulatedState);
+			CloseTag();
+			if ( ((i + 1) % 9) == 0 ) {
+				CloseTag();
+				OpenTag("tr");
+			}
+		}
+
+		public void AfterAllSimulations() {
+			CloseTag();
+			CloseTag();
+		}
+
+		public void AfterBestInputSelection(
+			float bestFit,
+			IReadOnlyGameState gameState,
+			(InputState[] inputs, IReadOnlyGameState state, float fit)[] bestVariants,
+			(InputState[] inputs, IReadOnlyGameState state, float fit) bestVariant,
+			(InputState[] inputs, IReadOnlyGameState state, float fit)[] otherVariants,
+			int bestIndex) {
+			WriteWithHeader("Best fit", bestFit);
+			WriteVariants("Best variants", bestVariants.Select(v => v.inputs).ToArray());
+			WriteVariant($"Best variant ({bestIndex})", bestVariant.inputs);
+			WriteFinalState(
+				gameState,
+				bestVariant.state,
+				bestVariants.Select(v => v.state).ToArray(),
+				otherVariants.Select(v => v.state).ToArray());
+			CloseTag();
+		}
+
+		public void WriteFitSummary(
+			int linesCleared, int weightedHeight, int cumulativeHeight, int relativeHeight, int holes, int roughness, float result) {
+			WriteWithHeader("LC", linesCleared);
+			WriteWithHeader("WH", weightedHeight);
+			WriteWithHeader("CH", cumulativeHeight);
+			WriteWithHeader("RH", relativeHeight);
+			WriteWithHeader("H", holes);
+			WriteWithHeader("R", roughness);
+			WriteWithHeader("FIT", result);
+		}
+
+		void OpenTag(string name, string attributes = null) {
 			_tags.Push(name);
 			_content.Append("<").Append(name);
 			if ( !string.IsNullOrEmpty(attributes) ) {
@@ -50,21 +108,21 @@ namespace TetrisGame.Service {
 			_content.Append(">");
 		}
 
-		public void CloseTag() {
+		void CloseTag() {
 			_content.Append("</").Append(_tags.Pop()).Append(">");
 		}
 
-		public void Write(string content) {
+		void Write(string content) {
 			_content.Append(content);
 		}
 
-		public void Write(string tag, string content) {
+		void Write(string tag, string content) {
 			OpenTag(tag);
 			Write(content);
 			CloseTag();
 		}
 
-		public void WriteFinalState(
+		void WriteFinalState(
 			IReadOnlyGameState state,
 			IReadOnlyGameState bestVariant, IReadOnlyGameState[] bestVariants, IReadOnlyGameState[] otherVariants) {
 			OpenTag("table", "class=\"state\"");
@@ -81,7 +139,7 @@ namespace TetrisGame.Service {
 			CloseTag();
 		}
 
-		public void WriteVariantState(IReadOnlyGameState state, IReadOnlyGameState variant) {
+		void WriteVariantState(IReadOnlyGameState state, IReadOnlyGameState variant) {
 			OpenTag("table", "class=\"state-small\"");
 			for ( var y = state.Field.Height; y >= 0; y-- ) {
 				OpenTag("tr");
@@ -95,24 +153,24 @@ namespace TetrisGame.Service {
 			CloseTag();
 		}
 
-		public void WriteWithHeader(string header, string body) {
+		void WriteWithHeader(string header, string body) {
 			OpenTag("p");
 			Write("b", header + ": ");
 			Write(body);
 			CloseTag();
 		}
 
-		public void WriteWithHeader(string header, float value) =>
+		void WriteWithHeader(string header, float value) =>
 			WriteWithHeader(header, value.ToString("F4", CultureInfo.InvariantCulture));
 
-		public void WriteWithHeader(string header, int value) =>
+		void WriteWithHeader(string header, int value) =>
 			WriteWithHeader(header, value.ToString());
 
-		public void WriteVariant(string header, InputState[] inputs) {
+		void WriteVariant(string header, InputState[] inputs) {
 			WriteWithHeader(header, ConvertInputsToString(inputs));
 		}
 
-		public void WriteVariants(string header, InputState[][] inputs) {
+		void WriteVariants(string header, InputState[][] inputs) {
 			WriteWithHeader(header, string.Join("; ", inputs.Select(ConvertInputsToString)));
 		}
 

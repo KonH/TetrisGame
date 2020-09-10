@@ -7,6 +7,8 @@ using Random = System.Random;
 
 namespace TetrisGame.Service {
 	public sealed class GeneticPredictor {
+		static readonly InputState[][] _allVariants = GetAllVariants();
+
 		readonly GameLoopSettings _loopSettings;
 		readonly GeneticSettings  _geneticSettings;
 
@@ -25,7 +27,7 @@ namespace TetrisGame.Service {
 
 		public InputState[] GetBestInputs(IReadOnlyGameState gameState) {
 			_debugger?.BeforeBestInputSelection(gameState);
-			var variants = GetVariants();
+			var variants = _allVariants;
 			var variantFits = new (InputState[] inputs, IReadOnlyGameState state, float fit)[variants.Length];
 			_debugger?.BeforeAllSimulations();
 			for ( var i = 0; i < variants.Length; i++ ) {
@@ -45,7 +47,7 @@ namespace TetrisGame.Service {
 			return bestVariant.inputs;
 		}
 
-		InputState[][] GetVariants() {
+		static InputState[][] GetAllVariants() {
 			var results = new List<InputState[]> { new[] { InputState.None } };
 
 			const int offset = 5;
@@ -69,7 +71,7 @@ namespace TetrisGame.Service {
 			return results.ToArray();
 		}
 
-		InputState[] FillMovement(int count, InputState state) {
+		static InputState[] FillMovement(int count, InputState state) {
 			var result = new InputState[count];
 			for ( var j = 0; j < count; j++ ) {
 				result[j] = state;

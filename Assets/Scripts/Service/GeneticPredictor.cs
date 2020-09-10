@@ -32,9 +32,10 @@ namespace TetrisGame.Service {
 			_debugger?.BeforeAllSimulations();
 			for ( var i = 0; i < variants.Length; i++ ) {
 				var variant = variants[i];
+				_debugger?.BeforeSimulation(i, variant);
 				var (simulatedState, fit) = Simulate(gameState, variant);
 				variantFits[i] = (variant, simulatedState, fit);
-				_debugger?.AfterSimulation(i, variant, gameState, simulatedState);
+				_debugger?.AfterSimulation(i, gameState, simulatedState);
 			}
 			_debugger?.AfterAllSimulations();
 			var bestFit       = variantFits.Max(w => w.fit);

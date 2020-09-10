@@ -51,11 +51,14 @@ namespace TetrisGame.Service {
 			OpenTag("tr");
 		}
 
-		public void AfterSimulation(
-			int i, InputState[] variant, IReadOnlyGameState gameState, IReadOnlyGameState simulatedState) {
+		public void BeforeSimulation(int i, InputState[] variant) {
 			OpenTag("td", "class=\"variant-info\"");
 			OpenTag("div");
 			WriteVariant(i.ToString(), variant);
+		}
+
+		public void AfterSimulation(
+			int i, IReadOnlyGameState gameState, IReadOnlyGameState simulatedState) {
 			CloseTag();
 			WriteVariantState(gameState, simulatedState);
 			CloseTag();

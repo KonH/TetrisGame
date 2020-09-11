@@ -73,21 +73,21 @@ namespace TetrisGame.Service {
 			CloseTag();
 		}
 
-		public void AfterBestInputSelection(
+		internal void AfterBestInputSelection(
 			float bestFit,
 			IReadOnlyGameState gameState,
-			(InputState[] inputs, IReadOnlyGameState state, float fit)[] bestVariants,
-			(InputState[] inputs, IReadOnlyGameState state, float fit) bestVariant,
-			(InputState[] inputs, IReadOnlyGameState state, float fit)[] otherVariants,
+			List<VariantFit> bestVariants,
+			VariantFit bestVariant,
+			List<VariantFit> otherVariants,
 			int bestIndex) {
 			WriteWithHeader("Best fit", bestFit);
-			WriteVariants("Best variants", bestVariants.Select(v => v.inputs).ToArray());
-			WriteVariant($"Best variant ({bestIndex})", bestVariant.inputs);
+			WriteVariants("Best variants", bestVariants.Select(v => v.Inputs).ToArray());
+			WriteVariant($"Best variant ({bestIndex})", bestVariant.Inputs);
 			WriteFinalState(
 				gameState,
-				bestVariant.state,
-				bestVariants.Select(v => v.state).ToArray(),
-				otherVariants.Select(v => v.state).ToArray());
+				bestVariant.State,
+				bestVariants.Select(v => v.State).ToArray(),
+				otherVariants.Select(v => v.State).ToArray());
 			CloseTag();
 		}
 

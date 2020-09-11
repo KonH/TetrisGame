@@ -21,5 +21,17 @@ namespace TetrisGame.State {
 			Speed   = new SpeedState(initialSpeed);
 			Records = new RecordState();
 		}
+
+		public void Clone(IReadOnlyGameState other) {
+			Field.Clone(other.Field);
+			Figure.Clone(other.Figure);
+			Speed.Clone(other.Speed);
+			Records.Clone(other.Records);
+			Scores       = other.Scores;
+			ClearedLines = other.ClearedLines;
+			Finished     = other.Finished;
+			Input        = other.Input;
+			FitCount     = other.FitCount;
+		}
 	}
 }

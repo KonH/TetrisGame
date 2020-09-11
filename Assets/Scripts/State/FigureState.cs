@@ -20,5 +20,11 @@ namespace TetrisGame.State {
 			Origin = Vector2.zero;
 			Elements.Clear();
 		}
+
+		internal void Clone(IReadOnlyFigureState other) {
+			Reset();
+			Elements.AddRange(other.Elements);
+			Origin = other.Origin;
+		}
 	}
 }

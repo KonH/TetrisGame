@@ -23,5 +23,14 @@ namespace TetrisGame.State {
 		public bool GetStateUnsafe(int x, int y) {
 			return _field[x, y];
 		}
+
+		internal void Clone(IReadOnlyFieldState other) {
+			for ( var x = 0; x < other.Width; x++ ) {
+				for ( var y = 0; y < other.Height; y++ ) {
+					Field[x, y] = other.GetStateUnsafe(x, y);
+				}
+			}
+			IsDirty = other.IsDirty;
+		}
 	}
 }

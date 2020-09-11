@@ -8,7 +8,6 @@ namespace TetrisGame.Service {
 	public sealed class GeneticPredictor {
 		static readonly InputState[][] _allVariants = GetAllVariants();
 
-		readonly GameLoopSettings _loopSettings;
 		readonly GeneticSettings  _geneticSettings;
 
 		[CanBeNull]
@@ -21,14 +20,18 @@ namespace TetrisGame.Service {
 		readonly List<VariantFit> _bestVariants  = new List<VariantFit>(_allVariants.Length);
 		readonly List<VariantFit> _otherVariants = new List<VariantFit>(_allVariants.Length);
 
+		readonly GameStatePool      _gameStatePool;
+		readonly CommonGameLoopPool _gameLoopPool;
+
 		readonly int[] _heights;
 
 		public GeneticPredictor(
 			GameLoopSettings loopSettings, GeneticSettings geneticSettings, [CanBeNull] GeneticDebugger debugger) {
-			_loopSettings    = loopSettings;
 			_geneticSettings = geneticSettings;
 			_debugger        = debugger;
 			_random          = new Random(loopSettings.RandomSeed);
+			_gameStatePool   = new GameStatePool(loopSettings.Width, loopSettings.Height, loopSettings.InitialSpeed);
+			_gameLoopPool    = new CommonGameLoopPool(loopSettings);
 			_heights         = new int[loopSettings.Width];
 		}
 
@@ -53,6 +56,9 @@ namespace TetrisGame.Service {
 				var otherVariants = GetOtherVariants(variantFits, bestFit);
 				_debugger?
 					.AfterBestInputSelection(bestFit, gameState, bestVariants, bestVariant, otherVariants, bestIndex);
+			}
+			for ( var i = 0; i < variants.Length; i++ ) {
+				_gameStatePool.Release(variantFits[i].State);
 			}
 			return bestVariant.Inputs;
 		}
@@ -124,32 +130,15 @@ namespace TetrisGame.Service {
 			return result;
 		}
 
-		(IReadOnlyGameState state, float fit) Simulate(IReadOnlyGameState initialState, InputState[] inputs) {
-			var state = CloneState(initialState);
-			var loop  = new CommonGameLoop(_loopSettings, state);
-			PerformSimulation(loop, inputs);
-			return (state, CalculateFit(initialState, loop.State));
+		(GameState state, float fit) Simulate(IReadOnlyGameState initialState, InputState[] inputs) {
+			var state = _gameStatePool.Clone(initialState);
+			var loop  = _gameLoopPool.Get(state);
+			PerformSimulation(initialState, loop, inputs);
+			_gameLoopPool.Release(loop);
+			return (state, CalculateFit(initialState, state));
 		}
 
-		GameState CloneState(IReadOnlyGameState oldState) {
-			var settings  = _loopSettings;
-			var state     = new GameState(settings.Width, settings.Height, settings.InitialSpeed);
-			state.ClearedLines = oldState.ClearedLines;
-			var oldFigure = oldState.Figure;
-			var newFigure = state.Figure;
-			newFigure.Elements.AddRange(oldFigure.Elements);
-			newFigure.Origin = oldFigure.Origin;
-			var oldField  = oldState.Field;
-			var newField  = state.Field;
-			for ( var x = 0; x < oldField.Width; x++ ) {
-				for ( var y = 0; y < oldField.Height; y++ ) {
-					newField.Field[x, y] = oldField.GetStateUnsafe(x, y);
-				}
-			}
-			return state;
-		}
-
-		void PerformSimulation(IGameLoop loop, InputState[] inputs) {
+		void PerformSimulation(IReadOnlyGameState initialState, IGameLoop loop, InputState[] inputs) {
 			var inputIndex = 0;
 			var isFinished = false;
 			while ( !isFinished ) {
@@ -158,7 +147,7 @@ namespace TetrisGame.Service {
 					loop.UpdateInput(inputs[inputIndex]);
 				}
 				inputIndex++;
-				isFinished = loop.State.Finished || (loop.State.FitCount > 0);
+				isFinished = loop.State.Finished || (loop.State.FitCount > initialState.FitCount);
 			}
 		}
 

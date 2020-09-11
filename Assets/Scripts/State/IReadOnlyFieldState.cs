@@ -5,5 +5,6 @@ namespace TetrisGame.State {
 		int  Height  { get; }
 
 		bool GetState(int x, int y);
+		bool GetStateUnsafe(int x, int y);
 	}
 }

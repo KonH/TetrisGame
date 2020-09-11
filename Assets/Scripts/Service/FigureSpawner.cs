@@ -6,13 +6,13 @@ namespace TetrisGame.Service {
 	/// Create new random figure
 	/// </summary>
 	public sealed class FigureSpawner {
-		readonly int         _width;
-		readonly int         _height;
-		readonly Vector2[][] _figures;
+		readonly int            _width;
+		readonly int            _height;
+		readonly Vector2Int[][] _figures;
 
 		readonly System.Random _random;
 
-		public FigureSpawner(int width, int height, int randomSeed, Vector2[][] figures) {
+		public FigureSpawner(int width, int height, int randomSeed, Vector2Int[][] figures) {
 			_width   = width;
 			_height  = height;
 			_figures = figures;

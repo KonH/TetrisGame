@@ -9,7 +9,7 @@ namespace TetrisGame.Tests {
 		public void IsFigureSimplyDeconstructed() {
 			var field  = new FieldState(1, 2);
 			var figure = new FigureState();
-			figure.Elements.Add(new Vector2(0, 0));
+			figure.Elements.Add(new Vector2Int(0, 0));
 			var deconstructor = new FigureDeconstructor();
 
 			deconstructor.Place(field, figure);
@@ -24,7 +24,7 @@ namespace TetrisGame.Tests {
 			var field  = new FieldState(1, 2);
 			var figure = new FigureState();
 			figure.Origin = new Vector2(0, 1);
-			figure.Elements.Add(new Vector2(0, 0));
+			figure.Elements.Add(new Vector2Int(0, 0));
 			var deconstructor = new FigureDeconstructor();
 
 			deconstructor.Place(field, figure);
@@ -38,7 +38,8 @@ namespace TetrisGame.Tests {
 		public void IsFigureRoundedDeconstructed() {
 			var field  = new FieldState(1, 2);
 			var figure = new FigureState();
-			figure.Elements.Add(new Vector2(0.99f, 0.99f));
+			figure.Origin = new Vector2(-0.01f, -0.01f);
+			figure.Elements.Add(new Vector2Int(1, 1));
 			var deconstructor = new FigureDeconstructor();
 
 			deconstructor.Place(field, figure);
@@ -52,7 +53,7 @@ namespace TetrisGame.Tests {
 		public void IsFigureSkippedOutOfRange() {
 			var field  = new FieldState(1, 2);
 			var figure = new FigureState();
-			figure.Elements.Add(new Vector2(2, 3));
+			figure.Elements.Add(new Vector2Int(2, 3));
 			var deconstructor = new FigureDeconstructor();
 
 			deconstructor.Place(field, figure);

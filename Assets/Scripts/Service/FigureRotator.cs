@@ -20,8 +20,8 @@ namespace TetrisGame.Service {
 			}
 		}
 
-		Vector2 Rotate(Vector2 element, bool clockwise) {
-			return clockwise ? new Vector2(element.y, -element.x) : new Vector2(-element.y, element.x);
+		Vector2Int Rotate(Vector2Int element, bool clockwise) {
+			return clockwise ? new Vector2Int(element.y, -element.x) : new Vector2Int(-element.y, element.x);
 		}
 	}
 }

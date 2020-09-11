@@ -99,7 +99,7 @@ namespace TetrisGame.Service {
 			var newField  = state.Field;
 			for ( var x = 0; x < oldField.Width; x++ ) {
 				for ( var y = 0; y < oldField.Height; y++ ) {
-					newField.Field[x, y] = oldField.GetState(x, y);
+					newField.Field[x, y] = oldField.GetStateUnsafe(x, y);
 				}
 			}
 			return state;
@@ -123,7 +123,7 @@ namespace TetrisGame.Service {
 			var heights      = new int[state.Field.Width];
 			for ( var x = 0; x < state.Field.Width; x++ ) {
 				for ( var y = 0; y < state.Field.Height; y++ ) {
-					if ( state.Field.GetState(x, y) && (y > heights[x]) ) {
+					if ( state.Field.GetStateUnsafe(x, y) && (y > heights[x]) ) {
 						heights[x] = y;
 					}
 				}
@@ -134,7 +134,7 @@ namespace TetrisGame.Service {
 			var holes = 0;
 			for ( var x = 0; x < state.Field.Width; x++ ) {
 				for ( var y = 0; y < state.Field.Height; y++ ) {
-					if ( !state.Field.GetState(x, y) && (y < heights[x]) ) {
+					if ( !state.Field.GetStateUnsafe(x, y) && (y < heights[x]) ) {
 						holes++;
 					}
 				}

@@ -7,25 +7,15 @@ namespace TetrisGame.Service {
 	/// </summary>
 	public sealed class CollisionDetector {
 		public bool HasCollisions(IReadOnlyFieldState field, IReadOnlyFigureState figure) {
+			var originX = Mathf.FloorToInt(figure.Origin.x);
+			var originY = Mathf.FloorToInt(figure.Origin.y);
 			for ( var i = 0; i < figure.Elements.Count; i++ ) {
 				var element = figure.Elements[i];
-				if ( HasCollisions(field, figure.Origin + element) ) {
+				if ( field.GetState(originX + element.x, originY + element.y) ) {
 					return true;
 				}
 			}
 			return false;
-		}
-
-		bool HasCollisions(IReadOnlyFieldState field, Vector2 position) {
-			var x = Mathf.FloorToInt(position.x);
-			var y = Mathf.FloorToInt(position.y);
-			if ( (x < 0) || (x >= field.Width) ) {
-				return false;
-			}
-			if ( (y < 0) || (y >= field.Height) ) {
-				return false;
-			}
-			return field.GetState(x, y);
 		}
 	}
 }

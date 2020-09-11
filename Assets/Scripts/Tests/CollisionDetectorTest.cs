@@ -10,7 +10,7 @@ namespace TetrisGame.Tests {
 			var field = new FieldState(2, 2);
 			field.Field[0, 0] = true;
 			var figure = new FigureState();
-			figure.Elements.Add(new Vector2(0, 0));
+			figure.Elements.Add(new Vector2Int(0, 0));
 			var detector = new CollisionDetector();
 
 			var result = detector.HasCollisions(field, figure);
@@ -25,7 +25,7 @@ namespace TetrisGame.Tests {
 			var figure = new FigureState {
 				Origin = Vector2.up
 			};
-			figure.Elements.Add(new Vector2(0, 0));
+			figure.Elements.Add(new Vector2Int(0, 0));
 			var detector = new CollisionDetector();
 
 			var result = detector.HasCollisions(field, figure);
@@ -37,7 +37,7 @@ namespace TetrisGame.Tests {
 		public void HasNoDiscreteCollisions() {
 			var field = new FieldState(2, 2);
 			var figure = new FigureState();
-			figure.Elements.Add(new Vector2(0, 0));
+			figure.Elements.Add(new Vector2Int(0, 0));
 			var detector = new CollisionDetector();
 
 			var result = detector.HasCollisions(field, figure);
@@ -50,7 +50,8 @@ namespace TetrisGame.Tests {
 			var field = new FieldState(2, 2);
 			field.Field[0, 0] = true;
 			var figure = new FigureState();
-			figure.Elements.Add(new Vector2(0.6f, 0.6f));
+			figure.Origin = new Vector2(0.6f, 0.6f);
+			figure.Elements.Add(new Vector2Int(0, 0));
 			var detector = new CollisionDetector();
 
 			var result = detector.HasCollisions(field, figure);

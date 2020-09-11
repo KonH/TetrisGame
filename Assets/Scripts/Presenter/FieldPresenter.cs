@@ -38,7 +38,7 @@ namespace TetrisGame.Presenter {
 			for ( var x = 0; x < field.Width; x++ ) {
 				for ( var y = 0; y < field.Height; y++ ) {
 					var isPresented       = _presentedState[x, y];
-					var shouldBePresented = field.GetState(x, y);
+					var shouldBePresented = field.GetStateUnsafe(x, y);
 					if ( isPresented == shouldBePresented ) {
 						continue;
 					}

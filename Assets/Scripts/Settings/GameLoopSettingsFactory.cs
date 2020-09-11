@@ -9,8 +9,8 @@ namespace TetrisGame.Settings {
 				PopulateFigures(settings), settings.ScorePerLines, randomSeed);
 		}
 
-		static Vector2[][] PopulateFigures(GameGlobalSettings settings) {
-			var figures = new Vector2[settings.Figures.Count][];
+		static Vector2Int[][] PopulateFigures(GameGlobalSettings settings) {
+			var figures = new Vector2Int[settings.Figures.Count][];
 			for ( var i = 0; i < settings.Figures.Count; i++ ) {
 				figures[i] = settings.Figures[i].Elements;
 			}

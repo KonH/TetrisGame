@@ -10,10 +10,13 @@ namespace TetrisGame.Service {
 		readonly int         _height;
 		readonly Vector2[][] _figures;
 
-		public FigureSpawner(int width, int height, Vector2[][] figures) {
+		readonly System.Random _random;
+
+		public FigureSpawner(int width, int height, int randomSeed, Vector2[][] figures) {
 			_width   = width;
 			_height  = height;
 			_figures = figures;
+			_random = new System.Random(randomSeed);
 		}
 
 		public void Spawn(FigureState figure) {
@@ -21,7 +24,7 @@ namespace TetrisGame.Service {
 			// (we need discrete start position)
 			figure.Reset();
 			figure.Origin = new Vector2(_width / 2 - 1, _height - 1);
-			var elements = _figures[Random.Range(0, _figures.Length)];
+			var elements = _figures[_random.Next(0, _figures.Length)];
 			figure.Elements.AddRange(elements);
 		}
 	}

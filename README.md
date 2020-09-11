@@ -22,6 +22,7 @@ You can play it [here](https://konhit.xyz/TetrisGame/).
 - Keyboard input
 - Simple 3D graphics
 - Local leaderboard
+- Player/AI mode
 - Animations
 - Sounds
 
@@ -32,6 +33,14 @@ You can play it [here](https://konhit.xyz/TetrisGame/).
 - **Service** - game logic, separated to different classes; uses writable game state; GameLoop as a services composition
 - **Settings** - required configuration, separated to global and scene settings 
 - **State** - raw game data, separated to writable and read only representations
+
+# AI
+
+- **Editor/GeneticTrainer** - genetic algorithm trainer to detect better AI parameters
+- **Service/GeneticPlayer** - AI implementation selecting better movements based on set of parameters
+- **Service/GeneticDebugger** - AI debug utility to investigate move selection logic using game logs in html format:
+
+<img src="Content/LogSample.png" alt="ai report" width="753" />
 
 ## Credits
 

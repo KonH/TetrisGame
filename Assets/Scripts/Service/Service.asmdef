@@ -1,7 +1,8 @@
 {
     "name": "Service",
     "references": [
-        "GUID:2073c63de13da41e3bc88a3441be35e2"
+        "GUID:2073c63de13da41e3bc88a3441be35e2",
+        "GUID:eeb7514bad7eb408b9cabbe2ca556bbc"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

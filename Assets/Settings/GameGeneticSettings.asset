@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GameGeneticSettings
   m_EditorClassIdentifier: 
   Settings:
-    LinesCleared: 0.2256865
-    WeightedHeight: -0.1171396
-    CumulativeHeight: -0.7477187
-    RelativeHeight: -0.3073878
-    Holes: -0.007793502
-    Roughness: 0.3951654
+    LinesCleared: 0.6338662
+    WeightedHeight: 0.1514999
+    CumulativeHeight: -1.03341
+    RelativeHeight: -0.7279727
+    Holes: -0.8361529
+    Roughness: -0.08294022
     UseDebugging: 0

@@ -22,6 +22,11 @@ namespace TetrisGame.EntryPoint {
 			_aiButton.onClick.AddListener(OnAI);
 		}
 
+		void Start() {
+			QualitySettings.vSyncCount  = 0;
+			Application.targetFrameRate = 60;
+		}
+
 		void OnPlay() {
 			GameRuntimeSettings.Instance.UseAI = false;
 			SceneManager.LoadScene("Game");

@@ -8,7 +8,7 @@ namespace TetrisGame.Tests {
 		[Test]
 		public void IsSpawnedAtTopCenter() {
 			var figure  = new FigureState();
-			var spawner = new FigureSpawner(10, 20, 42, new[] { new[] { new Vector2(0, 0) } });
+			var spawner = new FigureSpawner(10, 20, 42, new[] { new[] { new Vector2Int(0, 0) } });
 
 			spawner.Spawn(figure);
 
@@ -18,12 +18,12 @@ namespace TetrisGame.Tests {
 		[Test]
 		public void IsSpawnCorrectElements() {
 			var figure  = new FigureState();
-			var spawner = new FigureSpawner(10, 20, 42, new[] { new[] { new Vector2(0, 0) } });
+			var spawner = new FigureSpawner(10, 20, 42, new[] { new[] { new Vector2Int(0, 0) } });
 
 			spawner.Spawn(figure);
 
 			Assert.AreEqual(1, figure.Elements.Count);
-			Assert.AreEqual(new Vector2(0, 0), figure.Elements[0]);
+			Assert.AreEqual(new Vector2Int(0, 0), figure.Elements[0]);
 		}
 	}
 }

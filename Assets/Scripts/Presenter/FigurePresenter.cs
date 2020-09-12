@@ -23,12 +23,12 @@ namespace TetrisGame.Presenter {
 			SyncElements(figure.Elements);
 		}
 
-		void SyncElementCount(IReadOnlyList<Vector2> elements) {
+		void SyncElementCount(IReadOnlyList<Vector2Int> elements) {
 			RemoveExcessiveElements(elements);
 			AddRequiredElements(elements);
 		}
 
-		void RemoveExcessiveElements(IReadOnlyList<Vector2> elements) {
+		void RemoveExcessiveElements(IReadOnlyList<Vector2Int> elements) {
 			while ( _elements.Count > elements.Count ) {
 				var lastElement = _elements[_elements.Count - 1];
 				_pool.Recycle(lastElement);
@@ -36,15 +36,15 @@ namespace TetrisGame.Presenter {
 			}
 		}
 
-		void AddRequiredElements(IReadOnlyList<Vector2> elements) {
+		void AddRequiredElements(IReadOnlyList<Vector2Int> elements) {
 			while ( elements.Count > _elements.Count ) {
-				_elements.Add(_pool.GetOrCreate(_root, Vector2.zero));
+				_elements.Add(_pool.GetOrCreate(_root, Vector2Int.zero));
 			}
 		}
 
-		void SyncElements(IReadOnlyList<Vector2> elements) {
+		void SyncElements(IReadOnlyList<Vector2Int> elements) {
 			for ( var i = 0; i < elements.Count; i++ ) {
-				_elements[i].transform.localPosition = elements[i];
+				_elements[i].transform.localPosition = (Vector2)elements[i];
 			}
 		}
 	}

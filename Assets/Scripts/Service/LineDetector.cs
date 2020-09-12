@@ -11,7 +11,7 @@ namespace TetrisGame.Service {
 			for ( var y = 0; y < field.Height; y++ ) {
 				var isFilled = true;
 				for ( var x = 0; x < field.Width; x++ ) {
-					if ( !field.GetState(x, y) ) {
+					if ( !field.GetStateUnsafe(x, y) ) {
 						isFilled = false;
 						break;
 					}

@@ -15,13 +15,13 @@ namespace TetrisGame.Tests {
 			 * [ - * ]
 			 */
 			var figure = new FigureState();
-			figure.Elements.Add(new Vector2(0, 1));
+			figure.Elements.Add(new Vector2Int(0, 1));
 			var rotator = new FigureRotator();
 
 			rotator.Rotate(figure);
 
 			var element = figure.Elements[0];
-			Assert.AreEqual(new Vector2(1, 0), element);
+			Assert.AreEqual(new Vector2Int(1, 0), element);
 		}
 
 		[Test]
@@ -35,13 +35,13 @@ namespace TetrisGame.Tests {
 			 * =>
 			 */
 			var figure = new FigureState();
-			figure.Elements.Add(new Vector2(1, 0));
+			figure.Elements.Add(new Vector2Int(1, 0));
 			var rotator = new FigureRotator();
 
 			rotator.RotateBack(figure);
 
 			var element = figure.Elements[0];
-			Assert.AreEqual(new Vector2(0, 1), element);
+			Assert.AreEqual(new Vector2Int(0, 1), element);
 		}
 	}
 }

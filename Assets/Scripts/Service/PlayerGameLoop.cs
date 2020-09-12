@@ -21,7 +21,7 @@ namespace TetrisGame.Service {
 			if ( _loop.PreUpdate() ) {
 				_loop.PostUpdate(dt);
 			} else {
-				_recordWriter.Write(_state.Records, new RecordUnit(_state.Scores, true));
+				_recordWriter.Write(_state.Records, new RecordUnit(_state.Scores, false));
 			}
 		}
 

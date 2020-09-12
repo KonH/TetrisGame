@@ -7,7 +7,8 @@ namespace TetrisGame.Service {
 	/// Coordinates all game logic parts
 	/// </summary>
 	public sealed class CommonGameLoop : IGameLoop {
-		readonly GameState           _state;
+		GameState _state;
+
 		readonly FigureSpawner       _spawner;
 		readonly FigureMover         _mover;
 		readonly FigureRotator       _rotator;
@@ -35,6 +36,10 @@ namespace TetrisGame.Service {
 			_lineDetector      = new LineDetector();
 			_lineDropper       = new LineDropper();
 			_scoreProducer     = new ScoreProducer(settings.ScorePerLines);
+		}
+
+		internal void Reset(GameState state) {
+			_state = state;
 		}
 
 		public void Update(float dt) {

@@ -7,7 +7,8 @@ namespace TetrisGame.Service {
 	/// </summary>
 	public sealed class FigureDeconstructor {
 		public void Place(FieldState field, IReadOnlyFigureState figure) {
-			foreach ( var element in figure.Elements ) {
+			for ( var i = 0; i < figure.Elements.Count; i++ ) {
+				var element = figure.Elements[i];
 				Place(field, figure.Origin + element);
 			}
 		}

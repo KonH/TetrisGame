@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -6,7 +7,10 @@ namespace TetrisGame.Settings {
 		[SerializeField]
 		Vector2[] _elements;
 
-		public Vector2[] Elements => _elements;
+		public Vector2Int[] Elements =>
+			_elements
+				.Select(v => new Vector2Int((int)v.x, (int)v.y))
+				.ToArray();
 
 		public void OnValidate() {
 			Assert.AreNotEqual(0, _elements?.Length, nameof(_elements));

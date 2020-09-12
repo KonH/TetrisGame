@@ -5,9 +5,10 @@ namespace TetrisGame.State {
 		IReadOnlySpeedState  Speed   { get; }
 		IReadOnlyRecordState Records { get; }
 
-		int  Scores       { get; }
-		int  ClearedLines { get; }
-		bool Finished     { get; }
-		int  FitCount     { get; }
+		InputState Input        { get; }
+		int        Scores       { get; }
+		int        ClearedLines { get; }
+		bool       Finished     { get; }
+		int        FitCount     { get; }
 	}
 }

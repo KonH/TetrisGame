@@ -1,5 +1,7 @@
 namespace TetrisGame.State {
 	public interface IReadOnlySpeedState {
-		int Level { get; }
+		int   CurrentLines { get; }
+		int   Level        { get; }
+		float Current      { get; }
 	}
 }

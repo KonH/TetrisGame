@@ -13,16 +13,18 @@ namespace TetrisGame.Service {
 		}
 
 		public bool IsLimitReached(IReadOnlyFigureState figure) {
+			var x = figure.Origin.x;
+			var y = figure.Origin.y;
 			for ( var i = 0; i < figure.Elements.Count; i++ ) {
 				var element = figure.Elements[i];
-				if ( IsLimitReached(figure.Origin + element) ) {
+				if ( IsLimitReached(x + element.x, y + element.y) ) {
 					return true;
 				}
 			}
 			return false;
 		}
 
-		bool IsLimitReached(Vector2 position) =>
-			(position.y <= 0) || (position.x < 0) || (position.x >= _width);
+		bool IsLimitReached(float x, float y) =>
+			(y <= 0) || (x < 0) || (x >= _width);
 	}
 }
